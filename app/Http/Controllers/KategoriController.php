@@ -18,15 +18,8 @@ class KategoriController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Menampilkan data kategori dalam format yang kompatibel dengan DataTables.
      */
-    public function create()
-    {
-        //
-    }
-
     public function data()
     {
         $kategori = Kategori::orderBy('id_kategori', 'desc')->get();
@@ -46,24 +39,29 @@ class KategoriController extends Controller
             ->make(true);
     }
 
-
     /**
-     * Store a newly created resource in storage.
+     * Simpan data baru kategori.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // Validasi input
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+        ]);
+
+        // Simpan data kategori baru
         $kategori = new Kategori();
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->save();
 
-        return response()->json('Data berhasil disimpan', 200);
+        return response()->json(['success' => true, 'message' => 'Data berhasil disimpan'], 200);
     }
 
     /**
-     * Display the specified resource.
+     * Tampilkan data kategori berdasarkan ID.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -72,22 +70,15 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::find($id);
 
+        if (!$kategori) {
+            return response()->json(['error' => 'Data tidak ditemukan'], 404);
+        }
+
         return response()->json($kategori);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update data kategori yang ada.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -95,15 +86,26 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validasi input
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+        ]);
+
+        // Cari dan update data kategori
         $kategori = Kategori::find($id);
+        
+        if (!$kategori) {
+            return response()->json(['error' => 'Data tidak ditemukan'], 404);
+        }
+
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->update();
 
-        return response()->json('Data berhasil disimpan', 200);
+        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui'], 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus data kategori berdasarkan ID.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -111,8 +113,13 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         $kategori = Kategori::find($id);
+
+        if (!$kategori) {
+            return response()->json(['error' => 'Data tidak ditemukan'], 404);
+        }
+
         $kategori->delete();
 
-        return response(null, 204);
+        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus'], 204);
     }
 }

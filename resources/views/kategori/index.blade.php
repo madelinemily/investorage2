@@ -13,11 +13,11 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
-            <div class="box-header with-border" style="font-family: Poppins">
-                <button onclick="addForm('{{ route('kategori.store') }}')" class="btn" style="background-color: rgb(116, 165, 195); color: #fff"><i class="fa fa-plus-circle"></i> Tambah</button>
+            <div class="box-header">
+                <button onclick="addForm('{{ route('kategori.store') }}')" class="btn-tambah"><i class="fa fa-plus-circle"></i> Tambah</button>
             </div>
-            <div class="box-body table-responsive" style="font-family: Poppins">
-                <table class="table table-stiped table-bordered">
+            <div class="box-body table-responsive">
+                <table class="table table-stiped table-hover">
                     <thead>
                         <th width="5%">No</th>
                         <th>Kategori</th>
@@ -50,29 +50,47 @@
         });
     });
 
-    $('#modal-form').validator().on('submit', function (e) {
-            if (! e.preventDefault()) {
-                $.ajax({
-                    url: $('#modal-form form').attr('action'),
-                    type: 'post',
-                    data: $('#modal-form form').serialize(),
-                })
-                .done((response) => {
-                    $('#modal-form').modal('hide');
-                    table.ajax.reload();
-                })
-                .fail((errors) => {
-                    alert('Tidak dapat menyimpan data');
-                    return;
-                });
-            }
-        });
+    // Mengganti validator dengan validasi Bootstrap 5
+    (function () {
+        'use strict';
+
+        var forms = document.querySelectorAll('.needs-validation');
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    } else {
+                        event.preventDefault();
+
+                        $.ajax({
+                            url: $('#modal-form form').attr('action'),
+                            type: 'post',
+                            data: $('#modal-form form').serialize(),
+                            cache: false,
+                        })
+                        .done((response) => {
+                            $('#modal-form').modal('hide');
+                            table.ajax.reload(null, false);
+                        })
+                        .fail((errors) => {
+                            alert('Tidak dapat menyimpan data');
+                        });
+                    }
+
+                    form.classList.add('was-validated');
+                }, false);
+            });
+    })();
 
     function addForm(url) {
         $('#modal-form').modal('show');
         $('#modal-form .modal-title').text('Tambah Kategori');
 
         $('#modal-form form')[0].reset();
+        $('#modal-form form').removeClass('was-validated'); // Reset validasi
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('post');
         $('#modal-form [name=nama_kategori]').focus();
@@ -83,6 +101,7 @@
         $('#modal-form .modal-title').text('Edit Kategori');
 
         $('#modal-form form')[0].reset();
+        $('#modal-form form').removeClass('was-validated'); // Reset validasi
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('put');
         $('#modal-form [name=nama_kategori]').focus();

@@ -1697,12 +1697,10 @@ a:focus {
 }
 .box {
     position: relative;
-    border-radius: 3px;
+    border-radius: 5px;
     background: #ffffff;
-    border-top: 3px solid #d2d6de;
     margin-bottom: 20px;
     width: 100%;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 .box.box-primary {
     border-top-color: #3c8dbc;
@@ -2337,11 +2335,20 @@ a:focus {
     box-shadow: none;
     border: 1px solid transparent;
 }
+.btn-tambah {
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 10px;
+    background-color: #00A65A;
+    border: none;
+    color: #fff;
+}
 .btn.uppercase {
     text-transform: uppercase;
 }
 .btn.btn-flat {
-    border-radius: 0;
+    border-radius: 5px;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -2403,8 +2410,9 @@ a:focus {
     background-color: #008d4c;
 }
 .btn-info {
-    background-color: #00c0ef;
-    border-color: #00acd6;
+    background-color: #2E4492;
+    border: none;
+    color: #fff;
 }
 .btn-info:hover,
 .btn-info:active,
@@ -5070,6 +5078,8 @@ fieldset[disabled] .btn-yahoo.focus {
 .label-success,
 .modal-success .modal-body {
     background-color: #00a65a !important;
+    padding: 10px;
+    border-radius: 5px;
 }
 .bg-navy {
     background-color: #001f3f !important;
