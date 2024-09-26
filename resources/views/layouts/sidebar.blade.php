@@ -1,25 +1,9 @@
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="{{ asset('AdminLTE-2/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
+    <section class="sidebar" style="margin-top: 2rem">
    
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li>
-          <a href="{{ route('dashboard') }}">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
-        </li>
-
         <li class="header">MASTER</li>
 
         <li>
@@ -93,22 +77,9 @@
 
         <li>
           <a href="#">
-            <i class="fa fa-cogs"></i> <span>Pengaturan</span>
+            <i class="fa fa-cogs"></i> <span style="color: black; font-family: Poppins; font-weight: 400; color: rgb(59, 65, 73)">Pengaturan</span>
           </a>
         </li>
-
-        <li>
-          <a href="#">
-            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Lama</span>
-          </a>
-        </li>
-
-        <li>
-          <a href="#">
-            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
-          </a>
-        </li>
-
     </section>
 
   </aside>

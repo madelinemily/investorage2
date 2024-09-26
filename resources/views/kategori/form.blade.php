@@ -4,7 +4,7 @@
             @csrf
             @method('post')
 
-            <div class="modal-content">
+            <div class="modal-content" style="font-family: Poppins">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
@@ -20,8 +20,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-sm btn-flat btn-primary"><i class="fa fa-save"></i> Simpan</button>
-                    <button type="button" class="btn btn-sm btn-flat btn-warning" data-dismiss="modal"><i class="fa fa-arrow-circle-left"></i> Batal</button>
+                    <button class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-arrow-circle-left"></i> Batal</button>
                 </div>
             </div>
         </form>

@@ -1,12 +1,13 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{{ route('dashboard') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">TE</span>
+      <span class="logo-mini"><img src="images/logo_small.png" alt=""></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">{{ config('app.name') }}</span>
+      <span class="logo-lg"><img src="images/logo.png" alt=""></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
+    <div>
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">

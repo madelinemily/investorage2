@@ -6,17 +6,17 @@
 
 @section('breadcrumb')
     @parent
-    <li class="active">Daftar Kategori</li>
+    <li class="active" style="font-family: Poppins">Daftar Kategori</li>
 @endsection
 
 @section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
-            <div class="box-header with-border">
-                <button onclick="addForm('{{ route('kategori.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
+            <div class="box-header with-border" style="font-family: Poppins">
+                <button onclick="addForm('{{ route('kategori.store') }}')" class="btn" style="background-color: rgb(116, 165, 195); color: #fff"><i class="fa fa-plus-circle"></i> Tambah</button>
             </div>
-            <div class="box-body table-responsive">
+            <div class="box-body table-responsive" style="font-family: Poppins">
                 <table class="table table-stiped table-bordered">
                     <thead>
                         <th width="5%">No</th>
