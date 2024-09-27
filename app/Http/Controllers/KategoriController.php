@@ -57,7 +57,7 @@ class KategoriController extends Controller
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->save();
 
-        return response()->json(['success' => true, 'message' => 'Data berhasil disimpan'], 200);
+        return redirect()->route('kategori.index')->with('success', 'Data berhasil diperbarui');
     }
 
     /**
@@ -101,7 +101,7 @@ class KategoriController extends Controller
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->update();
 
-        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui'], 200);
+        return redirect()->route('kategori.index')->with('success', 'Data berhasil diperbarui');
     }
 
     /**

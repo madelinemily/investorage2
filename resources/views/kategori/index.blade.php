@@ -52,69 +52,71 @@
 
     // Mengganti validator dengan validasi Bootstrap 5
     (function () {
-        'use strict';
+    'use strict';
 
-        var forms = document.querySelectorAll('.needs-validation');
+    var forms = document.querySelectorAll('.needs-validation');
 
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    } else {
-                        event.preventDefault();
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Cegah default form submission
+                event.stopPropagation(); // Hentikan event bubbling
 
-                        $.ajax({
-                            url: $('#modal-form form').attr('action'),
-                            type: 'post',
-                            data: $('#modal-form form').serialize(),
-                            cache: false,
-                        })
-                        .done((response) => {
-                            $('#modal-form').modal('hide');
-                            table.ajax.reload(null, false);
-                        })
-                        .fail((errors) => {
-                            alert('Tidak dapat menyimpan data');
-                        });
-                    }
+                if (!form.checkValidity()) {
+                    return;
+                }
 
-                    form.classList.add('was-validated');
-                }, false);
-            });
-    })();
+                // Buat request AJAX untuk menyimpan atau mengupdate kategori
+                $.ajax({
+                    url: $('#modal-form form').attr('action'),
+                    type: 'post',
+                    data: $('#modal-form form').serialize(),
+                    cache: false,
+                })
+                .done((response) => {
+                    $('#modal-form').modal('hide');
+                    table.ajax.reload(null, false); // Reload tabel tanpa reload halaman
+                })
+                .fail((errors) => {
+                    alert('Tidak dapat menyimpan data');
+                });
 
-    function addForm(url) {
-        $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Tambah Kategori');
+                form.classList.add('was-validated'); // Tambah validasi bootstrap
+            }, false);
+        });
+})();
 
-        $('#modal-form form')[0].reset();
-        $('#modal-form form').removeClass('was-validated'); // Reset validasi
-        $('#modal-form form').attr('action', url);
-        $('#modal-form [name=_method]').val('post');
-        $('#modal-form [name=nama_kategori]').focus();
-    }
+function addForm(url) {
+    $('#modal-form').modal('show');
+    $('#modal-form .modal-title').text('Tambah Kategori');
 
-    function editForm(url) {
-        $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Edit Kategori');
+    $('#modal-form form')[0].reset();
+    $('#modal-form form').removeClass('was-validated');
+    $('#modal-form form').attr('action', url);
+    $('#modal-form [name=_method]').val('post');
+    $('#modal-form [name=nama_kategori]').focus();
+}
 
-        $('#modal-form form')[0].reset();
-        $('#modal-form form').removeClass('was-validated'); // Reset validasi
-        $('#modal-form form').attr('action', url);
-        $('#modal-form [name=_method]').val('put');
-        $('#modal-form [name=nama_kategori]').focus();
+function editForm(url) {
+    $('#modal-form').modal('show');
+    $('#modal-form .modal-title').text('Edit Kategori');
 
-        $.get(url)
-            .done((response) => {
-                $('#modal-form [name=nama_kategori]').val(response.nama_kategori);
-            })
-            .fail((errors) => {
-                alert('Tidak dapat menampilkan data');
-                return;
-            });
-    }
+    $('#modal-form form')[0].reset();
+    $('#modal-form form').removeClass('was-validated');
+    $('#modal-form form').attr('action', url); // Form action tetap update ke URL ini
+    $('#modal-form [name=_method]').val('put');
+    $('#modal-form [name=nama_kategori]').focus();
+
+    // Mendapatkan data kategori dengan AJAX GET
+    $.get(url)
+        .done((response) => {
+            $('#modal-form [name=nama_kategori]').val(response.nama_kategori);
+        })
+        .fail((errors) => {
+            alert('Tidak dapat menampilkan data');
+            return;
+        });
+}
 
     function deleteData(url) {
         if (confirm('Yakin ingin menghapus data terpilih?')) {
