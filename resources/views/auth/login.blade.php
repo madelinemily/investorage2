@@ -7,7 +7,7 @@
     <div class="login-box-body">
         <div class="login-logo">
             <a href="{{ url('/') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="logo.png" width="100">
+                <img src="{{ asset('images/logo_small.png') }}" alt="logo.png" width="50" style="background-color: #2E4492; border-radius: 50px;">
             </a>
         </div>
 
