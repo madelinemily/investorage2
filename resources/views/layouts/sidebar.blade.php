@@ -22,7 +22,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{ route(name: 'supplier.index') }}">
             <i class="fa fa-dashboard"></i> <span>Supplier</span>
           </a>
         </li>
