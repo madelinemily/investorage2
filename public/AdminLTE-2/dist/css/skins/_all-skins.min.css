@@ -1633,7 +1633,8 @@
     background-color: rgb(239, 229, 230);
 }
 .skin-purple-light .main-header .navbar .nav > li > a {
-    color: #fff;
+    color: #2E4492;
+    text-decoration: none;
 }
 .skin-purple-light .main-header .navbar .nav > li > a:hover,
 .skin-purple-light .main-header .navbar .nav > li > a:active,

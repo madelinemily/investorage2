@@ -19,7 +19,7 @@ body {
   height: 100%;
 }
 body {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
@@ -164,7 +164,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 /* General Links */
 a {
@@ -256,7 +256,7 @@ a:focus {
   background-color: transparent;
   background-image: none;
   padding: 15px 15px;
-  font-family: fontAwesome;
+  font-family: "Inter", sans-serif;
 }
 .main-header .sidebar-toggle:before {
   content: "\f0c9";
@@ -269,7 +269,7 @@ a:focus {
   background: transparent;
 }
 .main-header .sidebar-toggle.fa5 {
-  font-family: "Font Awesome\ 5 Free";
+  font-family: "Inter", sans-serif;
 }
 .main-header .sidebar-toggle.fa5:before {
   content: "\f0c9";
@@ -303,7 +303,7 @@ a:focus {
   line-height: 50px;
   text-align: center;
   width: 230px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Inter", sans-serif;
   padding: 0 15px;
   font-weight: 300;
   overflow: hidden;
@@ -1520,7 +1520,7 @@ a:focus {
 }
 .small-box > .small-box-footer:hover {
   color: #fff;
-  background: rgba(0, 0, 0, 0.15);
+  background: #787878;
 }
 .small-box h3 {
   font-size: 38px;
@@ -2297,13 +2297,13 @@ a:focus {
   background-color: #008d4c;
 }
 .btn-info {
-  background-color: #00c0ef;
-  border-color: #00acd6;
+  background-color: #2E4492;
+  border-color: #2E4492;
 }
 .btn-info:hover,
 .btn-info:active,
 .btn-info.hover {
-  background-color: #00acd6;
+  background-color: #2E4492;
 }
 .btn-danger {
   background-color: #dd4b39;

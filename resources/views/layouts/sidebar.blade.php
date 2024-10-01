@@ -36,7 +36,7 @@
         </li>
 
         <li>
-          <a href="#">
+          <a href="{{ route("pembelian.index") }}">
             <i class="fa fa-download"></i> <span>Pembelian</span>
           </a>
         </li>
@@ -77,7 +77,7 @@
 
         <li>
           <a href="#">
-            <i class="fa fa-cogs"></i> <span style="color: black; font-family: Poppins; font-weight: 400; color: rgb(59, 65, 73)">Pengaturan</span>
+            <i class="fa fa-cogs"></i> <span>Pengaturan</span>
           </a>
         </li>
     </section>

@@ -91,7 +91,7 @@
 			scaleBeginAtZero: false,
 
 			// String - Scale label font declaration for the scale label
-			scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+			scaleFontFamily: "Inter, sans-serif",
 
 			// Number - Scale label font size in pixels
 			scaleFontSize: 12,
@@ -100,7 +100,7 @@
 			scaleFontStyle: "normal",
 
 			// String - Scale label font colour
-			scaleFontColor: "#666",
+			scaleFontColor: "#2E4492",
 
 			// Boolean - whether or not the chart should be responsive and resize when the browser does.
 			responsive: false,
@@ -133,7 +133,7 @@
 			tooltipFontColor: "#fff",
 
 			// String - Tooltip title font declaration for the scale label
-			tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+			tooltipTitleFontFamily: "Inter, sans-serif",
 
 			// Number - Tooltip title font size in pixels
 			tooltipTitleFontSize: 14,
@@ -172,7 +172,7 @@
 			multiTooltipKeyBackground: '#fff',
 
 			// Array - A list of colors to use as the defaults
-			segmentColorDefault: ["#A6CEE3", "#1F78B4", "#B2DF8A", "#33A02C", "#FB9A99", "#E31A1C", "#FDBF6F", "#FF7F00", "#CAB2D6", "#6A3D9A", "#B4B482", "#B15928" ],
+			segmentColorDefault: ["#2E4492", "#1F78B4", "#B2DF8A", "#33A02C", "#FB9A99", "#E31A1C", "#FDBF6F", "#FF7F00", "#CAB2D6", "#6A3D9A", "#B4B482", "#B15928" ],
 
 			// Array - A list of highlight colors to use as the defaults
 			segmentHighlightColorDefaults: [ "#CEF6FF", "#47A0DC", "#DAFFB2", "#5BC854", "#FFC2C1", "#FF4244", "#FFE797", "#FFA728", "#F2DAFE", "#9265C2", "#DCDCAA", "#D98150" ],
