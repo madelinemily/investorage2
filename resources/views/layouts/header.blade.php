@@ -18,17 +18,37 @@
         <ul class="nav navbar-nav d-flex align-items-center">
           <!-- Notification Icon -->
           <li class="nav-item dropdown me-3">
-            <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- Lonceng dengan link untuk membuka dropdown -->
+            <a href="#" class="nav-link" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-bell" style="font-size: 20px;"></i>
-              <span class="badge bg-danger">3</span>
+              <!-- Badge dengan jumlah notifikasi -->
+              @php
+              $notifications = session('low_stock_notifications', []);
+              $notificationCount = count($notifications);
+              @endphp
+              @if($notificationCount > 0)
+              <span class="badge bg-danger">{{ $notificationCount }}</span>
+              @endif
             </a>
-            <ul class="dropdown-menu dropdown-menu-end">
+
+            <!-- Dropdown menu yang akan muncul setelah ikon diklik -->
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
               <li class="dropdown-header">Notifications</li>
-              <li><a class="dropdown-item" href="#">You have 3 new notifications</a></li>
-              <li><a class="dropdown-item" href="#">Another notification</a></li>
+
+              <!-- Loop notifikasi jika ada -->
+              @if($notificationCount > 0)
+              @foreach($notifications as $notification)
+              <li><a class="dropdown-item" href="#">{{ $notification }}</a></li>
+              @endforeach
+              @else
+              <li><a class="dropdown-item" href="#">No new notifications</a></li>
+              @endif
+
               <li><a class="dropdown-item" href="#">See all notifications</a></li>
             </ul>
           </li>
+
+
 
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -61,6 +81,21 @@
       </div>
     </nav>
 </header>
+
+<!-- Script di bagian bawah untuk memaksa dropdown berfungsi -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Ambil elemen dropdown dan ikon lonceng
+        const bellIcon = document.getElementById('notificationDropdown');
+        const dropdownMenu = new bootstrap.Dropdown(bellIcon);
+
+        // Event listener untuk memastikan dropdown muncul saat lonceng di klik
+        bellIcon.addEventListener('click', function (e) {
+            e.preventDefault();
+            dropdownMenu.toggle();  // Menggunakan Bootstrap's dropdown toggle
+        });
+    });
+</script>
 
 <form action="{{ route('logout') }}" method="post" id="logout-form" style="display: none;">
   @csrf
