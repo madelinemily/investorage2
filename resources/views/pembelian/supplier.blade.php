@@ -23,7 +23,7 @@
                                 <td>{{ $item->telepon }}</td>
                                 <td>{{ $item->alamat }}</td>
                                 <td>
-                                    <a href="{{ route('pembelian.create', $item->id_supplier) }}" class="btn btn-primary btn-xs btn-flat">
+                                    <a style="background-color: #2E4492; color: #fff" href="{{ route('pembelian.create', $item->id_supplier) }}" class="btn btn-xs btn-flat">
                                         <i class="fa fa-check-circle"></i>
                                         Pilih
                                     </a>

@@ -21,6 +21,7 @@
 
     .input-group-btn button {
         background-color: #2E4492;
+        border: none;
     }
 
     .box-footer button{
@@ -63,7 +64,7 @@
                                 <input type="hidden" name="id_produk" id="id_produk">
                                 <input type="text" class="form-control" name="kode_produk" id="kode_produk">
                                 <span class="input-group-btn">
-                                    <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
+                                    <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right" style="color: #fff;"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -109,7 +110,7 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="kode_member" value="{{ $memberSelected->kode_member }}">
                                         <span class="input-group-btn">
-                                            <button onclick="tampilMember()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
+                                            <button onclick="tampilMember()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right" style="color: #fff;"></i></button>
                                         </span>
                                     </div>
                                 </div>
