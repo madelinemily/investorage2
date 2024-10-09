@@ -4,6 +4,7 @@
    
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
+        @if(auth()->user()->level == 0)
         <li class="header">MASTER</li>
 
         <li>
@@ -80,6 +81,14 @@
             <i class="fa fa-cogs"></i> <span>Pengaturan</span>
           </a>
         </li>
+
+        @else
+        <li>
+          <a href="{{ route('produk.index') }}">
+            <i class="fa fa-dashboard"></i> <span>Produk</span>
+          </a>
+        </li>
+        @endif
     </section>
 
   </aside>

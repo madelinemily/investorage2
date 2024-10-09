@@ -1657,7 +1657,7 @@
     color: #fff;
 }
 .skin-purple-light .main-header .navbar .sidebar-toggle:hover {
-    background-color: #555299;
+    /* background-color: black; */
 }
 @media (max-width: 767px) {
     .skin-purple-light .main-header .navbar .dropdown-menu li.divider {
@@ -1676,7 +1676,7 @@
     border-bottom: 0 solid transparent;
 }
 .skin-purple-light .main-header .logo:hover {
-    background-color: #5d59a6;
+    background-color: rgb(78, 98, 171);
 }
 .skin-purple-light .main-header li.user-header {
     background-color: rgb(239, 229, 230);
@@ -1711,8 +1711,7 @@
 }
 .skin-purple-light .sidebar-menu > li:hover > a,
 .skin-purple-light .sidebar-menu > li.active > a {
-    color: #000;
-    background: #f4f4f5;
+    background: rgb(78, 98, 171);
 }
 .skin-purple-light .sidebar-menu > li.active {
     border-left-color: rgb(239, 229, 230);

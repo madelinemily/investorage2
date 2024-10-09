@@ -1642,8 +1642,7 @@ a:focus {
     text-decoration: none;
 }
 .small-box > .small-box-footer:hover {
-    color: #fff;
-    background: rgba(0, 0, 0, 0.15);
+    background: rgb(78, 98, 171);
 }
 .small-box h3 {
     font-size: 38px;
@@ -1679,7 +1678,10 @@ a:focus {
 }
 .small-box:hover {
     text-decoration: none;
-    color: #f9f9f9;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    /* color: #f9f9f9; */
 }
 .small-box:hover .icon {
     font-size: 95px;

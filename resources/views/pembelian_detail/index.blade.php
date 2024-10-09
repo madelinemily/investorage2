@@ -7,9 +7,11 @@
 @push('css')
 <style>
     .tampil-bayar {
-        font-size: 5em;
+        background-color: #2E4492;
+        font-size: 4em;
         text-align: center;
         height: 100px;
+        color: #fff;
     }
 
     .tampil-terbilang {
@@ -19,6 +21,15 @@
 
     .table-pembelian tbody tr:last-child {
         display: none;
+    }
+
+    .input-group-btn button {
+        background-color: #2E4492;
+    }
+
+    .box-footer button{
+        background-color: #00a759;
+        color: #fff;
     }
 
     @media(max-width: 768px) {
@@ -68,7 +79,7 @@
                                 <input type="hidden" name="id_produk" id="id_produk">
                                 <input type="text" class="form-control" name="kode_produk" id="kode_produk">
                                 <span class="input-group-btn">
-                                    <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
+                                    <button onclick="tampilProduk()" class="btn" type="button"><i class="fa fa-arrow-right" style="color: #fff"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -89,7 +100,7 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <div class="tampil-bayar bg-primary"></div>
+                        <div class="tampil-bayar"></div>
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
@@ -124,7 +135,7 @@
             </div>
 
             <div class="box-footer">
-                <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Simpan Transaksi</button>
+                <button type="submit" class="btn btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Simpan Transaksi</button>
             </div>
         </div>
     </div>
