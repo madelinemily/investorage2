@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Daftar Member
+    Daftar Pengeluaran
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Daftar Member</li>
+    <li class="active">Daftar Pengeluaran</li>
 @endsection
 
 @section('content')
@@ -14,31 +14,24 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <button onclick="addForm('{{ route('member.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
+                <button onclick="addForm('{{ route('pengeluaran.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
             </div>
             <div class="box-body table-responsive">
-                <form action="" method="post" class="form-member">
-                    @csrf
-                    <table class="table table-stiped table-bordered">
-                        <thead>
-                            <th width="5%">
-                                <input type="checkbox" name="select_all" id="select_all">
-                            </th>
-                            <th width="5%">No</th>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Telepon</th>
-                            <th>Alamat</th>
-                            <th width="15%"><i class="fa fa-cog"></i></th>
-                        </thead>
-                    </table>
-                </form>
+                <table class="table table-stiped table-bordered">
+                    <thead>
+                        <th width="5%">No</th>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Nominal</th>
+                        <th width="15%"><i class="fa fa-cog"></i></th>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-@includeIf('member.form')
+@includeIf('pengeluaran.form')
 @endsection
 
 @push('scripts')
@@ -52,21 +45,19 @@
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route('member.data') }}',
+                url: '{{ route('pengeluaran.data') }}',
             },
             columns: [
-                {data: 'select_all', searchable: false, sortable: false},
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
-                {data: 'kode_member'},
-                {data: 'nama'},
-                {data: 'telepon'},
-                {data: 'alamat'},
+                {data: 'created_at'},
+                {data: 'deskripsi'},
+                {data: 'nominal'},
                 {data: 'aksi', searchable: false, sortable: false},
             ]
         });
 
- // Mengganti validator dengan validasi Bootstrap 5
- (function () {
+// Mengganti validator dengan validasi Bootstrap 5
+(function () {
     'use strict';
 
     var forms = document.querySelectorAll('.needs-validation');
@@ -104,33 +95,32 @@
 
     function addForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Tambah Member');
+        $('#modal-form .modal-title').text('Tambah Pengeluaran');
 
         $('#modal-form form')[0].reset();
-        $('#modal-form form').removeClass('was-validated');
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('post');
-        $('#modal-form [name=nama]').focus();
+        $('#modal-form [name=deskripsi]').focus();
     }
 
     function editForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Edit Member');
+        $('#modal-form .modal-title').text('Edit Pengeluaran');
 
         $('#modal-form form')[0].reset();
-        $('#modal-form form').removeClass('was-validated');
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('put');
-        $('#modal-form [name=nama]').focus();
+        $('#modal-form [name=deskripsi]').focus();
 
         $.get(url)
-        .done((response) => {
-            $('#modal-form [name=nama_kategori]').val(response.nama_kategori);
-        })
-        .fail((errors) => {
-            alert('Tidak dapat menampilkan data');
-            return;
-        });
+            .done((response) => {
+                $('#modal-form [name=deskripsi]').val(response.deskripsi);
+                $('#modal-form [name=nominal]').val(response.nominal);
+            })
+            .fail((errors) => {
+                alert('Tidak dapat menampilkan data');
+                return;
+            });
     }
 
     function deleteData(url) {
