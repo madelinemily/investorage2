@@ -11,10 +11,11 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', function() {
+    return redirect()->route('login');
 });
 
 Route::middleware([
@@ -71,5 +72,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/laporan', [LaporanController::class, 'refresh'])->name('laporan.refresh');
     Route::get('/laporan/data/{awal}/{akhir}', [LaporanController::class, 'data'])->name('laporan.data');
     
+    Route::get('/profil', [UserController::class, 'profil'])->name('user.profil');
+    Route::post('/profil', [UserController::class, 'updateProfil'])->name('user.update_profil');
+    Route::get('/user/data', [UserController::class, 'data'])->name('user.data');
+    Route::resource('/user', UserController::class);
 });
 
