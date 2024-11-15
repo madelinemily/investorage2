@@ -13,7 +13,7 @@
 
         <form action="{{ route('login') }}" method="post" class="form-login">
             @csrf
-            <div class="form-group has-feedback @error('email') has-error @enderror">
+            <div class="form-group has-feedback mb-3 @error('email') has-error @enderror">
                 <input type="email" name="email" class="form-control" placeholder="Email" required value="{{ old('email') }}" autofocus>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 @error('email')
@@ -22,7 +22,7 @@
                 <span class="help-block with-errors"></span>
                 @enderror
             </div>
-            <div class="form-group has-feedback @error('password') has-error @enderror">
+            <div class="form-group has-feedback mb-3 @error('password') has-error @enderror">
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 @error('password')
@@ -32,9 +32,9 @@
                 @enderror
             </div>
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-8 mb-2">
                     <div class="checkbox icheck">
-                        <label>
+                        <label style="font-size: 13px;">
                             <input type="checkbox"> Remember Me
                         </label>
                     </div>
