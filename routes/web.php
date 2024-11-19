@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PembelianDetailController;
+use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\ProdukController;
@@ -57,5 +58,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
     Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
     Route::resource('/transaksi', PenjualanDetailController::class)->except('show');
+
+    Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
+    Route::resource('/pengeluaran', PengeluaranController::class);
 });
 
