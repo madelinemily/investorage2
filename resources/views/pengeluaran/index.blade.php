@@ -1,36 +1,142 @@
-<div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form">
-    <div class="modal-dialog modal-lg" role="document">
-        <form action="" method="post" class="form-horizontal">
-            @csrf
-            @method('post')
+@extends('layouts.master')
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label for="deskripsi" class="col-lg-2 col-lg-offset-1 control-label">Deskripsi</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="deskripsi" id="deskripsi" class="form-control" required autofocus>
-                            <span class="help-block with-errors"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="nominal" class="col-lg-2 col-lg-offset-1 control-label">Nominal</label>
-                        <div class="col-lg-6">
-                            <input type="number" name="nominal" id="nominal" class="form-control" required>
-                            <span class="help-block with-errors"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-sm btn-flat btn-primary"><i class="fa fa-save"></i> Simpan</button>
-                    <button type="button" class="btn btn-sm btn-flat btn-warning" data-dismiss="modal"><i class="fa fa-arrow-circle-left"></i> Batal</button>
-                </div>
+@section('title')
+    Daftar Pengeluaran
+@endsection
+
+@section('breadcrumb')
+    @parent
+    <li class="active">Daftar Pengeluaran</li>
+@endsection
+
+@section('content')
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <button onclick="addForm('{{ route('pengeluaran.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
             </div>
-        </form>
+            <div class="box-body table-responsive">
+                <table class="table table-stiped table-bordered">
+                    <thead>
+                        <th width="5%">No</th>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Nominal</th>
+                        <th width="15%"><i class="fa fa-cog"></i></th>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
+@includeIf('pengeluaran.form')
+@endsection
+
+@push('scripts')
+<script>
+    let table;
+
+    $(function () {
+        table = $('.table').DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            autoWidth: false,
+            ajax: {
+                url: '{{ route('pengeluaran.data') }}',
+            },
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, sortable: false},
+                {data: 'created_at'},
+                {data: 'deskripsi'},
+                {data: 'nominal'},
+                {data: 'aksi', searchable: false, sortable: false},
+            ]
+        });
+
+// Mengganti validator dengan validasi Bootstrap 5
+(function () {
+    'use strict';
+
+    var forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Cegah default form submission
+                event.stopPropagation(); // Hentikan event bubbling
+
+                if (!form.checkValidity()) {
+                    return;
+                }
+
+                // Buat request AJAX untuk menyimpan atau mengupdate kategori
+                $.ajax({
+                    url: $('#modal-form form').attr('action'),
+                    type: 'post',
+                    data: $('#modal-form form').serialize(),
+                    cache: false,
+                })
+                .done((response) => {
+                    $('#modal-form').modal('hide');
+                    table.ajax.reload(null, false); // Reload tabel tanpa reload halaman
+                })
+                .fail((errors) => {
+                    alert('Tidak dapat menyimpan data');
+                });
+
+                form.classList.add('was-validated'); // Tambah validasi bootstrap
+            }, false);
+        });
+    });
+});
+
+    function addForm(url) {
+        $('#modal-form').modal('show');
+        $('#modal-form .modal-title').text('Tambah Pengeluaran');
+
+        $('#modal-form form')[0].reset();
+        $('#modal-form form').attr('action', url);
+        $('#modal-form [name=_method]').val('post');
+        $('#modal-form [name=deskripsi]').focus();
+    }
+
+    function editForm(url) {
+        $('#modal-form').modal('show');
+        $('#modal-form .modal-title').text('Edit Pengeluaran');
+
+        $('#modal-form form')[0].reset();
+        $('#modal-form form').attr('action', url);
+        $('#modal-form [name=_method]').val('put');
+        $('#modal-form [name=deskripsi]').focus();
+
+        $.get(url)
+            .done((response) => {
+                $('#modal-form [name=deskripsi]').val(response.deskripsi);
+                $('#modal-form [name=nominal]').val(response.nominal);
+            })
+            .fail((errors) => {
+                alert('Tidak dapat menampilkan data');
+                return;
+            });
+    }
+
+    function deleteData(url) {
+        if (confirm('Yakin ingin menghapus data terpilih?')) {
+            $.post(url, {
+                    '_token': $('[name=csrf-token]').attr('content'),
+                    '_method': 'delete'
+                })
+                .done((response) => {
+                    table.ajax.reload();
+                })
+                .fail((errors) => {
+                    alert('Tidak dapat menghapus data');
+                    return;
+                });
+        }
+    }
+</script>
+@endpush

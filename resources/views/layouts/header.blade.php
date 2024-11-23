@@ -53,7 +53,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-              <img src="images/person.jpg" class="user-image img-profil" alt="User Image">
+              <img src="{{ url(auth()->user()->foto ?? '') }}" class="user-image img-profil" alt="User Image">
               <span class="hidden-xs">{{ auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
@@ -68,7 +68,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profil</a>
+                  <a href="{{ route('user.profil') }}" class="btn btn-default btn-flat">Profil</a>
                 </div>
                 <div class="pull-right">
                   <a href="#" class="btn btn-default btn-flat"
@@ -82,8 +82,10 @@
     </nav>
 </header>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <!-- Script di bagian bawah untuk memaksa dropdown berfungsi -->
-<script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Ambil elemen dropdown dan ikon lonceng
         const bellIcon = document.getElementById('notificationDropdown');
@@ -95,7 +97,8 @@
             dropdownMenu.toggle();  // Menggunakan Bootstrap's dropdown toggle
         });
     });
-</script>
+</script> -->
+
 
 <form action="{{ route('logout') }}" method="post" id="logout-form" style="display: none;">
   @csrf

@@ -18,7 +18,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="{{ route('member.index') }}">
             <i class="fa fa-dashboard"></i> <span>Member</span>
           </a>
         </li>
@@ -31,7 +31,7 @@
         <li class="header">TRANSAKSI</li>
 
         <li>
-          <a href="{{ route('pengeluaran.index)}}">
+          <a href="{{ route('pengeluaran.index') }}">
             <i class="fa fa-money"></i> <span>Pengeluaran</span>
           </a>
         </li>
@@ -63,7 +63,7 @@
         <li class="header">REPORT</li>
 
         <li>
-          <a href="#">
+          <a href="{{ route('laporan.index') }}">
             <i class="fa fa-file-pdf-o"></i> <span>Laporan</span>
           </a>
         </li>
