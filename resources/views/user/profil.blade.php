@@ -43,7 +43,7 @@
                         <label for="old_password" class="col-lg-2 control-label">Password Lama</label>
                         <div class="col-lg-6">
                             <input type="password" name="old_password" id="old_password" class="form-control" 
-                            minlength="6">
+                            minlength="5">
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <label for="password" class="col-lg-2 control-label">Password</label>
                         <div class="col-lg-6">
                             <input type="password" name="password" id="password" class="form-control" 
-                            minlength="6">
+                            minlength="5">
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

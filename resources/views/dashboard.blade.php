@@ -46,14 +46,14 @@
         <!-- small box -->
         <div class="small-box">
             <div class="inner">
-                <h3>0</h3>
+            <h3>{{ $member }}</h3>
 
                 <p>Total Member</p>
             </div>
             <div class="icon d-flex justify-content-center align-items-center rounded-circle" style="width: 70px; height: 70px; background-color: #2E4492;">
               <i class="ion ion-person-add text-white" style="font-size: 30px;"></i>
             </div>
-            <a href="#" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('member.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -61,14 +61,14 @@
         <!-- small box -->
         <div class="small-box">
             <div class="inner">
-                <h3>0</h3>
+            <h3>{{ $supplier }}</h3>
 
                 <p>Total Supplier</p>
             </div>
             <div class="icon d-flex justify-content-center align-items-center rounded-circle" style="width: 70px; height: 70px; background-color: #2E4492;">
               <i class="ion ion-pie-graph text-white" style="font-size: 30px;"></i>
             </div>
-            <a href="#" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('supplier.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
