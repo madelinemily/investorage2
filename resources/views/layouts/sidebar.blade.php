@@ -4,7 +4,7 @@
    
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        @if(auth()->user()->level == 0)
+        @if(auth()->user()->level == 1)
         <li class="header">MASTER</li>
 
         <li>
@@ -84,8 +84,14 @@
 
         @else
         <li>
-          <a href="{{ route('produk.index') }}">
-            <i class="fa fa-dashboard"></i> <span>Produk</span>
+          <a href="{{ route('transaksi.index')}}">
+            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Lama</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ route('transaksi.baru')}}">
+            <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
           </a>
         </li>
         @endif

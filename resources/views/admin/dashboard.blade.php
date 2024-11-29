@@ -14,14 +14,14 @@
 <div class="row">
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
-        <div class="small-box">
+        <div class="small-box bg-aqua">
             <div class="inner">
                 <h3>{{ $kategori }}</h3>
 
                 <p>Total Kategori</p>
             </div>
-            <div class="icon d-flex justify-content-center align-items-center rounded-circle" style="width: 70px; height: 70px; background-color: #2E4492;">
-              <i class="ion ion-bag text-white" style="font-size: 30px;"></i>
+            <div class="icon">
+                <i class="fa fa-cube"></i>
             </div>
             <a href="{{ route('kategori.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -29,14 +29,14 @@
     <!-- ./col -->
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
-        <div class="small-box">
+        <div class="small-box bg-green">
             <div class="inner">
                 <h3>{{ $produk }}</h3>
 
                 <p>Total Produk</p>
             </div>
-            <div class="icon d-flex justify-content-center align-items-center rounded-circle" style="width: 70px; height: 70px; background-color: #2E4492;">
-              <i class="ion ion-stats-bars text-white" style="font-size: 30px;"></i>
+            <div class="icon">
+                <i class="fa fa-cubes"></i>
             </div>
             <a href="{{ route('produk.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -44,31 +44,31 @@
     <!-- ./col -->
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
-        <div class="small-box">
+        <div class="small-box bg-yellow">
             <div class="inner">
-                <h3>0</h3>
+                <h3>{{ $member }}</h3>
 
                 <p>Total Member</p>
             </div>
-            <div class="icon d-flex justify-content-center align-items-center rounded-circle" style="width: 70px; height: 70px; background-color: #2E4492;">
-              <i class="ion ion-person-add text-white" style="font-size: 30px;"></i>
+            <div class="icon">
+                <i class="fa fa-id-card"></i>
             </div>
-            <a href="#" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('member.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
-        <div class="small-box">
+        <div class="small-box bg-red">
             <div class="inner">
-                <h3>0</h3>
+                <h3>{{ $supplier }}</h3>
 
                 <p>Total Supplier</p>
             </div>
-            <div class="icon d-flex justify-content-center align-items-center rounded-circle" style="width: 70px; height: 70px; background-color: #2E4492;">
-              <i class="ion ion-pie-graph text-white" style="font-size: 30px;"></i>
+            <div class="icon">
+                <i class="fa fa-truck"></i>
             </div>
-            <a href="#" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('supplier.index') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -105,4 +105,35 @@
 @push('scripts')
 <!-- ChartJS -->
 <script src="{{ asset('AdminLTE-2/bower_components/chart.js/Chart.js') }}"></script>
+<script>
+$(function() {
+    // Get context with jQuery - using jQuery's .get() method.
+    var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
+    // This will get the first returned node in the jQuery collection.
+    var salesChart = new Chart(salesChartCanvas);
+
+    var salesChartData = {
+        labels: {{ json_encode($data_tanggal) }},
+        datasets: [
+            {
+                label: 'Pendapatan',
+                fillColor           : 'rgba(60,141,188,0.9)',
+                strokeColor         : 'rgba(60,141,188,0.8)',
+                pointColor          : '#3b8bba',
+                pointStrokeColor    : 'rgba(60,141,188,1)',
+                pointHighlightFill  : '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: {{ json_encode($data_pendapatan) }}
+            }
+        ]
+    };
+
+    var salesChartOptions = {
+        pointDot : false,
+        responsive : true
+    };
+
+    salesChart.Line(salesChartData, salesChartOptions);
+});
+</script>
 @endpush
