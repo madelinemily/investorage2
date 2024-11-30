@@ -15,7 +15,7 @@
       </a>
 
       <div class="navbar-custom-menu d-flex align-items-center">
-        <ul class="nav navbar-nav d-flex align-items-center">
+        <ul class="nav navbar-nav d-flex flex-row align-items-center">
           <!-- Notification Icon -->
           <li class="nav-item dropdown me-3">
             <!-- Lonceng dengan link untuk membuka dropdown -->
@@ -38,7 +38,12 @@
               <!-- Loop notifikasi jika ada -->
               @if($notificationCount > 0)
               @foreach($notifications as $notification)
-              <li><a class="dropdown-item" href="#">{{ $notification }}</a></li>
+              <li>
+                <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                  <span>{{ $notification }}</span>
+                  <button class="btn btn-sm btn-danger remove-notification" data-id="{{ $loop->index }}">Remove</button>
+                </a>
+              </li>
               @endforeach
               @else
               <li><a class="dropdown-item" href="#">No new notifications</a></li>

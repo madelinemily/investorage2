@@ -5,8 +5,8 @@
             @method('post')
 
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header d-flex justify-content-between align-items-center">
+                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h4 class="modal-title"></h4>
                 </div>
                 <div class="modal-body">

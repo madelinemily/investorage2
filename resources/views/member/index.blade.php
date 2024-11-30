@@ -65,49 +65,30 @@
             ]
         });
 
- // Mengganti validator dengan validasi Bootstrap 5
- (function () {
-    'use strict';
+        $('#modal-form').validator().on('submit', function (e) {
+            if (! e.preventDefault()) {
+                $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
+                    .done((response) => {
+                        $('#modal-form').modal('hide');
+                        table.ajax.reload();
+                    })
+                    .fail((errors) => {
+                        alert('Tidak dapat menyimpan data');
+                        return;
+                    });
+            }
+        });
 
-    var forms = document.querySelectorAll('.needs-validation');
-
-    Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                event.preventDefault(); // Cegah default form submission
-                event.stopPropagation(); // Hentikan event bubbling
-
-                if (!form.checkValidity()) {
-                    return;
-                }
-
-                // Buat request AJAX untuk menyimpan atau mengupdate kategori
-                $.ajax({
-                    url: $('#modal-form form').attr('action'),
-                    type: 'post',
-                    data: $('#modal-form form').serialize(),
-                    cache: false,
-                })
-                .done((response) => {
-                    $('#modal-form').modal('hide');
-                    table.ajax.reload(null, false); // Reload tabel tanpa reload halaman
-                })
-                .fail((errors) => {
-                    alert('Tidak dapat menyimpan data');
-                });
-
-                form.classList.add('was-validated'); // Tambah validasi bootstrap
-            }, false);
+        $('[name=select_all]').on('click', function () {
+            $(':checkbox').prop('checked', this.checked);
         });
     });
-});
 
     function addForm(url) {
         $('#modal-form').modal('show');
         $('#modal-form .modal-title').text('Tambah Member');
 
         $('#modal-form form')[0].reset();
-        $('#modal-form form').removeClass('was-validated');
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('post');
         $('#modal-form [name=nama]').focus();
@@ -118,19 +99,20 @@
         $('#modal-form .modal-title').text('Edit Member');
 
         $('#modal-form form')[0].reset();
-        $('#modal-form form').removeClass('was-validated');
         $('#modal-form form').attr('action', url);
         $('#modal-form [name=_method]').val('put');
         $('#modal-form [name=nama]').focus();
 
         $.get(url)
-        .done((response) => {
-            $('#modal-form [name=nama_kategori]').val(response.nama_kategori);
-        })
-        .fail((errors) => {
-            alert('Tidak dapat menampilkan data');
-            return;
-        });
+            .done((response) => {
+                $('#modal-form [name=nama]').val(response.nama);
+                $('#modal-form [name=telepon]').val(response.telepon);
+                $('#modal-form [name=alamat]').val(response.alamat);
+            })
+            .fail((errors) => {
+                alert('Tidak dapat menampilkan data');
+                return;
+            });
     }
 
     function deleteData(url) {

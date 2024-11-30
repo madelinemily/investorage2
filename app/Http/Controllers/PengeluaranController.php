@@ -28,7 +28,7 @@ class PengeluaranController extends Controller
             ->addColumn('aksi', function ($pengeluaran) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('pengeluaran.update', $pengeluaran->id_pengeluaran) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="editForm(`'. route('pengeluaran.update', $pengeluaran->id_pengeluaran) .'`)" class="btn btn-xs btn-info btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-pencil" style="color: #FFFFFF"></i></button>
                     <button type="button" onclick="deleteData(`'. route('pengeluaran.destroy', $pengeluaran->id_pengeluaran) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
@@ -57,7 +57,8 @@ class PengeluaranController extends Controller
     {
         $pengeluaran = Pengeluaran::create($request->all());
 
-        return response()->json('Data berhasil disimpan', 200);
+        return redirect()->route('pengeluaran.index')->with('success', 'Data berhasil disimpan');
+        // return response()->json('Data berhasil disimpan', 200);
     }
 
     /**
@@ -95,7 +96,8 @@ class PengeluaranController extends Controller
     {
         $pengeluaran = Pengeluaran::find($id)->update($request->all());
 
-        return response()->json('Data berhasil disimpan', 200);
+        return redirect()->route('pengeluaran.index')->with('success', 'Data berhasil diperbarui');
+        // return response()->json('Data berhasil disimpan', 200);
     }
 
     /**

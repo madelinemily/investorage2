@@ -23,7 +23,7 @@ class UserController extends Controller
             ->addColumn('aksi', function ($user) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('user.update', $user->id) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="editForm(`'. route('user.update', $user->id) .'`)" class="btn btn-xs btn-info btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-pencil" style="color: #FFFFFF"></i></button>
                     <button type="button" onclick="deleteData(`'. route('user.destroy', $user->id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
@@ -58,7 +58,8 @@ class UserController extends Controller
         $user->foto = '/img/user.jpg';
         $user->save();
 
-        return response()->json('Data berhasil disimpan', 200);
+        return redirect()->route('user.index')->with('success', 'Data berhasil disimpan');
+        // return response()->json('Data berhasil disimpan', 200);
     }
 
     /**
@@ -101,7 +102,8 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
         $user->update();
 
-        return response()->json('Data berhasil disimpan', 200);
+        return redirect()->route('user.index')->with('success', 'Data berhasil diperbarui');
+        // return response()->json('Data berhasil disimpan', 200);
     }
 
     /**

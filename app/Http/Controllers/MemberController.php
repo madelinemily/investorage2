@@ -35,7 +35,7 @@ class MemberController extends Controller
             ->addColumn('aksi', function ($member) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('member.update', $member->id_member) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="editForm(`'. route('member.update', $member->id_member) .'`)" class="btn btn-xs btn-info btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-pencil" style="color: #FFFFFF"></i></button>
                     <button type="button" onclick="deleteData(`'. route('member.destroy', $member->id_member) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
@@ -73,7 +73,7 @@ class MemberController extends Controller
         $member->alamat = $request->alamat;
         $member->save();
 
-        return response()->json('Data berhasil disimpan', 200);
+        return redirect()->route('member.index')->with('success', 'Data berhasil disimpan');
     }
 
 
@@ -112,7 +112,8 @@ class MemberController extends Controller
     {
         $member = Member::find($id)->update($request->all());
 
-        return response()->json('Data berhasil disimpan', 200);
+        // return response()->json('Data berhasil disimpan', 200);
+        return redirect()->route('member.index')->with('success', 'Data berhasil disimpan');
     }
 
     /**

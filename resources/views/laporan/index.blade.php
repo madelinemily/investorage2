@@ -18,7 +18,7 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <button onclick="updatePeriode()" class="btn btn-info btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Ubah Periode</button>
+                <button onclick="updatePeriode()" class="btn btn-info btn-xs btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-plus-circle" style="color: #FFFFFF"></i><span style="color: #FFFFFF"> Ubah Periode</span></button>
             </div>
             <div class="box-body table-responsive">
                 <table class="table table-stiped table-bordered">

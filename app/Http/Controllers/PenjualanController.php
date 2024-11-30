@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Penjualan;
 use App\Models\PenjualanDetail;
 use App\Models\Produk;
@@ -47,7 +48,7 @@ class PenjualanController extends Controller
             ->addColumn('aksi', function ($penjualan) {
                 return '
                 <div class="btn-group">
-                    <button onclick="showDetail(`' . route('penjualan.show', $penjualan->id_penjualan) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
+                    <button onclick="showDetail(`' . route('penjualan.show', $penjualan->id_penjualan) . '`)" class="btn btn-xs btn-info btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-eye" style="color: #FFFFFF"></i></button>
                     <button onclick="deleteData(`' . route('penjualan.destroy', $penjualan->id_penjualan) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
@@ -58,6 +59,7 @@ class PenjualanController extends Controller
 
     public function create()
     {
+        // Buat entri baru hanya jika belum ada sesi
         $penjualan = new Penjualan();
         $penjualan->id_member = null;
         $penjualan->total_item = 0;
@@ -83,7 +85,7 @@ class PenjualanController extends Controller
         $penjualan->diterima = $request->diterima;
         $penjualan->update();
 
-        $notifications = []; // Array untuk menyimpan notifikasi stok rendah
+        // $notifications = []; // Array untuk menyimpan notifikasi stok rendah
 
         $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
         foreach ($detail as $item) {
@@ -91,12 +93,21 @@ class PenjualanController extends Controller
             $item->update();
 
             $produk = Produk::find($item->id_produk);
+
+            // Cek apakah stok cukup
+            if ($produk->stok < $item->jumlah) {
+                // Jika stok tidak cukup, beri notifikasi dan batalkan proses
+                return redirect()->route('transaksi.index')->with('error', "Stok produk {$produk->nama_produk} tidak mencukupi. Tersedia {$produk->stok} barang.");
+            }
+
             $produk->stok -= $item->jumlah;
             $produk->update();
 
             // Cek jika stok kurang dari 2
             if ($produk->stok < 2) {
-                $notifications[] = "Stok produk {$produk->nama_produk} tersisa {$produk->stok}. Harus beli lagi, sisa 2 nih!";
+                Notification::create([
+                    'message' => "Stok produk {$produk->nama_produk} tersisa {$produk->stok}. Harus beli lagi nih!",
+                ]);
             }
         }
 
