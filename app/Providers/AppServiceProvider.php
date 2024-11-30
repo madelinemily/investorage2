@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Notification;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // $notifications = Notification::where('is_read', false)->get();
+
+        // // Bagikan notifikasi ke semua view
+        // View::share('notifications', $notifications);
+        view()->composer('*', function ($view) {
+            $unreadNotifications = Notification::where('is_read', false)->get();
+            $view->with('notifications', $unreadNotifications); // Hanya kirimkan unread notifications
+        });
     }
 }

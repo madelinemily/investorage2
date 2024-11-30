@@ -22,35 +22,34 @@
             <a href="#" class="nav-link" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-bell" style="font-size: 20px;"></i>
               <!-- Badge dengan jumlah notifikasi -->
-              @php
-              $notifications = session('low_stock_notifications', []);
-              $notificationCount = count($notifications);
-              @endphp
-              @if($notificationCount > 0)
-              <span class="badge bg-danger">{{ $notificationCount }}</span>
-              @endif
+              @if($notifications->isNotEmpty())
+    <span>{{ $notifications->count() }}</span>
+@endif
+
+
+
+              
             </a>
 
             <!-- Dropdown menu yang akan muncul setelah ikon diklik -->
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-              <li class="dropdown-header">Notifications</li>
+            <!-- Dropdown menu yang akan muncul setelah ikon diklik -->
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+  <li class="dropdown-header">Notifications</li>
+  @if(count($notifications) > 0)
+    @foreach($notifications as $notification)
+      <li>
+        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+          <span>{{ $notification->message }}</span>
+          <button class="btn btn-sm btn-danger remove-notification" data-id="{{ $notification->id }}">Mark as Read</button>
+        </a>
+      </li>
+    @endforeach
+  @else
+    <li><a class="dropdown-item" href="#">No new notifications</a></li>
+  @endif
+  <li><a class="dropdown-item" href="{{ route('notifications.index') }}">See all notifications</a></li> <!-- Ganti dengan route yang menampilkan semua notifikasi -->
+</ul>
 
-              <!-- Loop notifikasi jika ada -->
-              @if($notificationCount > 0)
-              @foreach($notifications as $notification)
-              <li>
-                <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
-                  <span>{{ $notification }}</span>
-                  <button class="btn btn-sm btn-danger remove-notification" data-id="{{ $loop->index }}">Remove</button>
-                </a>
-              </li>
-              @endforeach
-              @else
-              <li><a class="dropdown-item" href="#">No new notifications</a></li>
-              @endif
-
-              <li><a class="dropdown-item" href="#">See all notifications</a></li>
-            </ul>
           </li>
 
 
@@ -88,6 +87,95 @@
 </header>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+       // Add click event for each notification item
+       const notificationItems = document.querySelectorAll('.dropdown-item');
+       
+       notificationItems.forEach(item => {
+           item.addEventListener('click', function () {
+               const notificationId = item.getAttribute('data-id');
+               
+               // Make an AJAX request to mark the notification as read
+               fetch(`/notifications/${notificationId}/read`, {
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'application/json',
+                       'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                   },
+                   body: JSON.stringify({
+                       id: notificationId
+                   })
+               })
+               .then(response => response.json())
+               .then(data => {
+                   if (data.success) {
+                       // Optionally, hide the badge or update the UI
+                       const notificationBadge = document.querySelector('.badge');
+                       if (notificationBadge) {
+                           notificationBadge.style.display = 'none'; // Hide the badge if no more unread notifications
+                       }
+                   }
+               });
+           });
+       });
+   });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Event listener untuk tombol "Mark as Read"
+    document.querySelectorAll('.remove-notification').forEach(button => {
+        button.addEventListener('click', function () {
+            const notificationId = this.getAttribute('data-id');
+
+            // Kirim AJAX request ke server
+            fetch(`/notifications/${notificationId}/read`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    }
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+})
+.then(data => {
+    if (data.success) {
+        // Hapus notifikasi dari dropdown
+        const notificationItem = document.querySelector(`.dropdown-item[data-id="${notificationId}"]`);
+        if (notificationItem) {
+            notificationItem.remove();
+        }
+
+        // Update badge
+        const badge = document.querySelector('.fa-bell + span');
+        const currentCount = parseInt(badge.textContent, 10) || 0;
+        if (currentCount > 0) {
+            badge.textContent = currentCount - 1;
+        }
+
+        // Jika tidak ada notifikasi unread lagi, sembunyikan badge
+        if (currentCount - 1 === 0) {
+            badge.style.display = 'none';
+        }
+
+        location.reload();
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+
+        });
+    });
+});
+
+</script>
 
 <!-- Script di bagian bawah untuk memaksa dropdown berfungsi -->
 <!-- <script>

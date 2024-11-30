@@ -8,6 +8,7 @@ use App\Models\PenjualanDetail;
 use App\Models\Produk;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class PenjualanController extends Controller
 {
@@ -107,13 +108,16 @@ class PenjualanController extends Controller
             if ($produk->stok < 2) {
                 Notification::create([
                     'message' => "Stok produk {$produk->nama_produk} tersisa {$produk->stok}. Harus beli lagi nih!",
+                    'read' => false,  // Statusnya unread
                 ]);
             }
         }
 
-        // Simpan notifikasi ke dalam sesi
-        if (!empty($notifications)) {
-            session()->flash('low_stock_notifications', $notifications);
+        // Ambil notifikasi yang belum dibaca
+        $notifications = Notification::where('is_read', false)->get();
+
+        if ($notifications->isNotEmpty()) {
+            session()->put('low_stock_notifications', $notifications);  // Menyimpan notifikasi ke sesi
         }
 
         return redirect()->route('transaksi.selesai');
