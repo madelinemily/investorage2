@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'title' => 'Product List',
+    'breadcrumb' => 'Product List',
+    'add_button' => 'Add',
+    'delete_button' => 'Delete',
+    'no' => 'No',
+    'code' => 'Code',
+    'name' => 'Name',
+    'category' => 'Category',
+    'brand' => 'Brand',
+    'purchase_price' => 'Purchase Price',
+    'selling_price' => 'Selling Price',
+    'discount' => 'Discount',
+    'stock' => 'Stock',
+    'action' => 'Action',
+    'modal_title_add' => 'Add Product',
+    'modal_title_edit' => 'Edit Product',
+    'save_button' => 'Save',
+    'cancel_button' => 'Cancel',
+    'choose_category' => 'Choose Category',
+    'delete_confirm' => 'Are you sure you want to delete the selected data?',
+    'delete_error' => 'Unable to delete data',
+    'delete_select_error' => 'Select the data to delete',
+    'fetch_error' => 'Unable to fetch data',
+    'save_error' => 'Unable to save data',
+];

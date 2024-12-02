@@ -98,7 +98,11 @@ class PenjualanController extends Controller
             // Cek apakah stok cukup
             if ($produk->stok < $item->jumlah) {
                 // Jika stok tidak cukup, beri notifikasi dan batalkan proses
-                return redirect()->route('transaksi.index')->with('error', "Stok produk {$produk->nama_produk} tidak mencukupi. Tersedia {$produk->stok} barang.");
+                return redirect()->route('transaksi.index')->with('error', __("penjualanDetail.stock_not_enough", [
+                    'product' => $produk->nama_produk,
+                    'stock' => $produk->stok
+                ]));
+                // return redirect()->route('transaksi.index')->with('error', "Stok produk {$produk->nama_produk} tidak mencukupi. Tersedia {$produk->stok} barang.");
             }
 
             $produk->stok -= $item->jumlah;
@@ -107,7 +111,10 @@ class PenjualanController extends Controller
             // Cek jika stok kurang dari 2
             if ($produk->stok < 2) {
                 Notification::create([
-                    'message' => "Stok produk {$produk->nama_produk} tersisa {$produk->stok}. Harus beli lagi nih!",
+                    'message' => __("penjualanDetail.low_stock_notification", [
+                        'product' => $produk->nama_produk,
+                        'stock' => $produk->stok
+                    ]),
                     'read' => false,  // Statusnya unread
                 ]);
             }

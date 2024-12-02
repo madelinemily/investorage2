@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Transaksi Penjualan
+{{ __('penjualan.sales_transaction') }}
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Transaksi Penjualan</li>
+    <li class="active">{{ __('penjualan.sales_transaction') }}</li>
 @endsection
 
 @section('content')
@@ -16,11 +16,11 @@
             <div class="box-body">
                 <div class="alert alert-success alert-dismissible">
                     <i class="fa fa-check icon"></i>
-                    Data Transaksi telah selesai.
+                    {{ __('penjualan.transaction_complete') }}
                 </div>
             </div>
             <div class="box-footer">
-                <a href="{{ route('transaksi.baru') }}" class="btn btn-primary btn-flat">Transaksi Baru</a>
+                <a href="{{ route('transaksi.baru') }}" class="btn btn-primary btn-flat">{{ __('penjualan.new_transaction') }}</a>
             </div>
         </div>
     </div>

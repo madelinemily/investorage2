@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Daftar Pembelian
+{{ __('pembelian.title') }}
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Daftar Pembelian</li>
+    <li class="active">{{ __('pembelian.breadcrumb') }}</li>
 @endsection
 
 @section('content')
@@ -14,21 +14,21 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <button onclick="addForm()" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Transaksi Baru</button>
+                <button onclick="addForm()" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> {{ __('pembelian.new_transaction') }}</button>
                 @empty(! session('id_pembelian'))
-                <a href="{{ route('pembelian_detail.index') }}" class="btn btn-xs btn-flat" style="color: #fff; background-color: #2E4492"><i class="fa fa-pencil"></i> Transaksi Aktif</a>
+                <a href="{{ route('pembelian_detail.index') }}" class="btn btn-xs btn-flat" style="color: #fff; background-color: #2E4492"><i class="fa fa-pencil"></i> {{ __('pembelian.active_transaction') }}</a>
                 @endempty
             </div>
             <div class="box-body table-responsive">
                 <table class="table table-stiped table-bordered table-pembelian">
                     <thead>
-                        <th width="5%">No</th>
-                        <th>Tanggal</th>
-                        <th>Supplier</th>
-                        <th>Total Item</th>
-                        <th>Total Harga</th>
-                        <th>Diskon</th>
-                        <th>Total Bayar</th>
+                        <th width="5%">{{ __('pembelian.table.no') }}</th>
+                        <th>{{ __('pembelian.table.date') }}</th>
+                        <th>{{ __('pembelian.table.supplier') }}</th>
+                        <th>{{ __('pembelian.table.total_item') }}</th>
+                        <th>{{ __('pembelian.table.total_price') }}</th>
+                        <th>{{ __('pembelian.table.discount') }}</th>
+                        <th>{{ __('pembelian.table.total_pay') }}</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -44,6 +44,10 @@
 @push('scripts')
 <script>
     let table, table1;
+
+    const translations = {
+        delete_confirm: "{{ __('pembelian.delete_confirm') }}",
+    };
 
     $(function () {
         table = $('.table-pembelian').DataTable({
@@ -94,7 +98,7 @@
     }
 
     function deleteData(url) {
-        if (confirm('Yakin ingin menghapus data terpilih?')) {
+        if (confirm(translations.delete_confirm)) {
             $.post(url, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'delete'

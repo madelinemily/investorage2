@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Daftar Pengeluaran
+{{ __('pengeluaran.title') }}
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Daftar Pengeluaran</li>
+    <li class="active">{{ __('pengeluaran.breadcrumb') }}</li>
 @endsection
 
 @section('content')
@@ -14,15 +14,15 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <button onclick="addForm('{{ route('pengeluaran.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
+                <button onclick="addForm('{{ route('pengeluaran.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> {{ __('pengeluaran.add_button') }}</button>
             </div>
             <div class="box-body table-responsive">
                 <table class="table table-stiped table-bordered">
                     <thead>
-                        <th width="5%">No</th>
-                        <th>Tanggal</th>
-                        <th>Deskripsi</th>
-                        <th>Nominal</th>
+                        <th width="5%">{{ __('pengeluaran.table.no') }}</th>
+                        <th>{{ __('pengeluaran.table.date') }}</th>
+                        <th>{{ __('pengeluaran.table.description') }}</th>
+                        <th>{{ __('pengeluaran.table.amount') }}</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -37,6 +37,12 @@
 @push('scripts')
 <script>
     let table;
+
+    const translations = {
+        delete_confirm: "{{ __('pengeluaran.delete_confirm') }}",
+        modal_title_add: "{{ __('pengeluaran.add_title') }}",
+        modal_title_edit: "{{ __('pengeluaran.edit_title') }}",
+    };
 
     $(function () {
         table = $('.table').DataTable({
@@ -95,7 +101,7 @@
 
     function addForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Tambah Pengeluaran');
+        $('#modal-form .modal-title').text(translations.modal_title_add);
 
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
@@ -105,7 +111,7 @@
 
     function editForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Edit Pengeluaran');
+        $('#modal-form .modal-title').text(translations.modal_title_edit);
 
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
@@ -124,7 +130,7 @@
     }
 
     function deleteData(url) {
-        if (confirm('Yakin ingin menghapus data terpilih?')) {
+        if (confirm(translations.delete_confirm)) {
             $.post(url, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'delete'

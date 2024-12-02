@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Daftar Produk
+{{ __('produk.title') }}
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Daftar Produk</li>
+    <li class="active">{{ __('produk.title') }}</li>
 @endsection
 
 @section('content')
@@ -15,8 +15,8 @@
         <div class="box">
             <div class="box-header with-border">
                 <div class="btn-group">
-                    <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
-                    <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-trash"></i> Hapus</button>
+                    <button onclick="addForm('{{ route('produk.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> {{ __('produk.add_button') }}</button>
+                    <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-trash"></i> {{ __('produk.delete_button') }}</button>
                 </div>
             </div>
             <div class="box-body table-responsive">
@@ -27,15 +27,15 @@
                             <th width="5%">
                                 <input type="checkbox" name="select_all" id="select_all">
                             </th>
-                            <th width="5%">No</th>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Kategori</th>
-                            <th>Merk</th>
-                            <th>Harga Beli</th>
-                            <th>Harga Jual</th>
-                            <th>Diskon</th>
-                            <th>Stok</th>
+                            <th width="5%">{{ __('produk.no') }}</th>
+                            <th>{{ __('produk.code') }}</th>
+                            <th>{{ __('produk.name') }}</th>
+                            <th>{{ __('produk.category') }}</th>
+                            <th>{{ __('produk.brand') }}</th>
+                            <th>{{ __('produk.purchase_price') }}</th>
+                            <th>{{ __('produk.selling_price') }}</th>
+                            <th>{{ __('produk.discount') }}</th>
+                            <th>{{ __('produk.stock') }}</th>
                             <th width="15%"><i class="fa fa-cog"></i></th>
                         </thead>
                     </table>
@@ -51,6 +51,17 @@
 @push('scripts')
 <script>
     let table;
+
+    const translations = {
+        delete_confirm: "{{ __('produk.delete_confirm') }}",
+        no_selection: "{{ __('produk.no_selection') }}",
+        cannot_delete: "{{ __('produk.delete_error') }}",
+        delete_select_error: "{{ __('produk.delete_select_error') }}",
+        error_fetch: "{{ __('produk.fetch_error') }}",
+        error_save: "{{ __('produk.save_error') }}",
+        modal_title_add: "{{ __('produk.modal_title_add') }}",
+        modal_title_edit: "{{ __('produk.modal_title_edit') }}",
+    };
 
     $(function () {
         table = $('.table').DataTable({
@@ -84,7 +95,7 @@
                         table.ajax.reload();
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menyimpan data');
+                        alert(translations.save_error);
                         return;
                     });
             }
@@ -97,7 +108,7 @@
 
     function addForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Tambah Produk');
+        $('#modal-form .modal-title').text(translations.modal_title_add);
 
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
@@ -107,7 +118,7 @@
 
     function editForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Edit Produk');
+        $('#modal-form .modal-title').text(translations.modal_title_edit);
 
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
@@ -125,13 +136,13 @@
                 $('#modal-form [name=stok]').val(response.stok);
             })
             .fail((errors) => {
-                alert('Tidak dapat menampilkan data');
+                alert(translations.fetch_error);
                 return;
             });
     }
 
     function deleteData(url) {
-        if (confirm('Yakin ingin menghapus data terpilih?')) {
+        if (confirm(translations.delete_confirm)) {
             $.post(url, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'delete'
@@ -140,7 +151,7 @@
                     table.ajax.reload();
                 })
                 .fail((errors) => {
-                    alert('Tidak dapat menghapus data');
+                    alert(translations.delete_error);
                     return;
                 });
         }
@@ -148,18 +159,18 @@
 
     function deleteSelected(url) {
         if ($('input:checked').length > 1) {
-            if (confirm('Yakin ingin menghapus data terpilih?')) {
+            if (confirm(translations.delete_confirm)) {
                 $.post(url, $('.form-produk').serialize())
                     .done((response) => {
                         table.ajax.reload();
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menghapus data');
+                        alert(translations.delete_error);
                         return;
                     });
             }
         } else {
-            alert('Pilih data yang akan dihapus');
+            alert(translations.delete_select_error);
             return;
         }
     }

@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Daftar Supplier
+{{ __('supplier.title') }}
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Daftar Supplier</li>
+    <li class="active">{{ __('supplier.title') }}</li>
 @endsection
 
 @section('content')
@@ -14,15 +14,15 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <button onclick="addForm('{{ route('supplier.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
+                <button onclick="addForm('{{ route('supplier.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> {{ __('supplier.add') }}</button>
             </div>
             <div class="box-body table-responsive">
                 <table class="table table-stiped table-bordered">
                     <thead>
-                        <th width="5%">No</th>
-                        <th>Nama</th>
-                        <th>Telepon</th>
-                        <th>Alamat</th>
+                        <th width="5%">{{ __('supplier.fields.no') }}</th>
+                        <th>{{ __('supplier.fields.name') }}</th>
+                        <th>{{ __('supplier.fields.phone') }}</th>
+                        <th>{{ __('supplier.fields.address') }}</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -37,6 +37,13 @@
 @push('scripts')
 <script>
     let table;
+
+    const translations = {
+        delete_confirm: "{{ __('supplier.delete_confirm') }}",
+        modal_title_add: "{{ __('supplier.add') }}",
+        modal_title_edit: "{{ __('supplier.edit') }}",
+        delete_fail: "{{ __('supplier.delete_fail') }}",
+    };
 
     $(function () {
         table = $('.table').DataTable({
@@ -95,7 +102,7 @@
 
     function addForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Tambah Supplier');
+        $('#modal-form .modal-title').text(translations.modal_title_add);
 
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
@@ -105,7 +112,7 @@
 
     function editForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Edit Supplier');
+        $('#modal-form .modal-title').text(translations.modal_title_edit);
 
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
@@ -125,7 +132,7 @@
     }
 
     function deleteData(url) {
-        if (confirm('Yakin ingin menghapus data terpilih?')) {
+        if (confirm(translations.delete_confirm)) {
             $.post(url, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'delete'
@@ -134,7 +141,7 @@
                     table.ajax.reload();
                 })
                 .fail((errors) => {
-                    alert('Tidak dapat menghapus data');
+                    alert(translations.delete_fail);
                     return;
                 });
         }

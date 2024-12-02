@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'pay' => 'Bayar',
+    'transaction' => 'Transaksi Penjualan',
+    'total' => 'Total',
+    'member' => 'Member',
+    'discount' => 'Diskon',
+    'payment' => 'Bayar',
+    'received' => 'Diterima',
+    'change' => 'Kembali',
+    'save_transaction' => 'Simpan Transaksi',
+    'product_code' => 'Kode Produk',
+    'select_product' => 'Pilih Produk',
+    'product_list' => 'Daftar Produk',
+    'quantity' => 'Jumlah',
+    'search_member' => 'Cari Member',
+    'confirmation_delete' => 'Yakin ingin menghapus data terpilih?',
+    'error_message' => 'Tidak dapat menyimpan data',
+    'no' => 'Tidak',
+    'yes' => 'Ya',
+    'back_to_dashboard' => 'Kembali ke Dashboard',
+    'search' => 'Cari',
+    'apply_discount' => 'Terapkan Diskon',
+    'no_data' => 'Tidak ada data',
+    'stock_not_enough' => 'Stok produk :product tidak mencukupi. Tersedia :stock barang.',
+    'low_stock_notification' => 'Stok produk :product tersisa :stock. Harus beli lagi nih!',
+];

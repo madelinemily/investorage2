@@ -4,17 +4,17 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Detail Pembelian</h4>
+                <h4 class="modal-title">{{ __('pembelian.title') }}</h4>
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-bordered table-detail">
                     <thead>
-                        <th width="5%">No</th>
-                        <th>Kode</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
-                        <th>Jumlah</th>
-                        <th>Subtotal</th>
+                        <th width="5%">{{ __('pembelian.table.no') }}</th>
+                        <th>{{ __('pembelian.table.code') }}</th>
+                        <th>{{ __('pembelian.table.name') }}</th>
+                        <th>{{ __('pembelian.table.price') }}</th>
+                        <th>{{ __('pembelian.table.quantity') }}</th>
+                        <th>{{ __('pembelian.table.subtotal') }}</th>
                     </thead>
                 </table>
             </div>

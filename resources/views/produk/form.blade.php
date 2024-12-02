@@ -11,17 +11,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="row mb-3">
-                        <label for="nama_produk" class="col-lg-3 col-form-label">Nama</label>
+                        <label for="nama_produk" class="col-lg-3 col-form-label">{{ __('produk.name') }}</label>
                         <div class="col-lg-6">
                             <input type="text" name="nama_produk" id="nama_produk" class="form-control" required autofocus>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="id_kategori" class="col-lg-3 col-form-label">Kategori</label>
+                        <label for="id_kategori" class="col-lg-3 col-form-label">{{ __('produk.category') }}</label>
                         <div class="col-lg-6">
                             <select name="id_kategori" id="id_kategori" class="form-control" required>
-                                <option value="">Pilih Kategori</option>
+                                <option value="">{{ __('produk.choose_category') }}</option>
                                 @foreach ($kategori as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
                                 @endforeach
@@ -30,35 +30,35 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="merk" class="col-lg-3 col-form-label">Merk</label>
+                        <label for="merk" class="col-lg-3 col-form-label">{{ __('produk.brand') }}</label>
                         <div class="col-lg-6">
                             <input type="text" name="merk" id="merk" class="form-control">
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="harga_beli" class="col-lg-3 col-form-label">Harga Beli</label>
+                        <label for="harga_beli" class="col-lg-3 col-form-label">{{ __('produk.purchase_price') }}</label>
                         <div class="col-lg-6">
                             <input type="number" name="harga_beli" id="harga_beli" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="harga_jual" class="col-lg-3 col-form-label">Harga Jual</label>
+                        <label for="harga_jual" class="col-lg-3 col-form-label">{{ __('produk.selling_price') }}</label>
                         <div class="col-lg-6">
                             <input type="number" name="harga_jual" id="harga_jual" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="diskon" class="col-lg-3 col-form-label">Diskon</label>
+                        <label for="diskon" class="col-lg-3 col-form-label">{{ __('produk.discount') }}</label>
                         <div class="col-lg-6">
                             <input type="number" name="diskon" id="diskon" class="form-control" value="0">
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="stok" class="col-lg-3 col-form-label">Stok</label>
+                        <label for="stok" class="col-lg-3 col-form-label">{{ __('produk.stock') }}</label>
                         <div class="col-lg-6">
                             <input type="number" name="stok" id="stok" class="form-control" required value="0">
                             <span class="help-block with-errors"></span>
@@ -66,8 +66,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-sm btn-flat btn-primary"><i class="fa fa-save"></i> Simpan</button>
-                    <button type="button" class="btn btn-sm btn-flat btn-warning" data-bs-dismiss="modal"><i class="fa fa-arrow-circle-left"></i> Batal</button>
+                    <button class="btn btn-sm btn-flat btn-primary"><i class="fa fa-save"></i> {{ __('produk.save_button') }}</button>
+                    <button type="button" class="btn btn-sm btn-flat btn-warning" data-bs-dismiss="modal"><i class="fa fa-arrow-circle-left"></i> {{ __('produk.cancel_button') }}</button>
                 </div>
             </div>
         </form>

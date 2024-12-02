@@ -3,15 +3,15 @@
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between align-items-center">
                 <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h4 class="modal-title">Pilih Member</h4>
+                <h4 class="modal-title">{{ __('pembelianDetail.choose_member') }}</h4>
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-bordered table-member">
                     <thead>
                         <th width="5%">No</th>
-                        <th>Nama</th>
-                        <th>Telepon</th>
-                        <th>Alamat</th>
+                        <th>{{ __('member.name') }}</th>
+                        <th>{{ __('member.phone') }}</th>
+                        <th>{{ __('member.address') }}</th>
                         <th><i class="fa fa-cog"></i></th>
                     </thead>
                     <tbody>
@@ -25,7 +25,7 @@
                                 <a href="#" class="btn btn-primary btn-xs btn-flat"
                                     onclick="pilihMember('{{ $item->id_member }}', '{{ $item->kode_member }}')">
                                     <i class="fa fa-check-circle"></i>
-                                    Pilih
+                                    {{ __('pembelianDetail.choose') }}
                                 </a>
                             </td>
                         </tr>

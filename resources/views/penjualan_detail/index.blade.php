@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Transaksi Penjualan
+{{ __('penjualanDetail.transaction') }}
 @endsection
 
 @push('css')
@@ -45,7 +45,7 @@
 
 @section('breadcrumb')
     @parent
-    <li class="active">Transaksi Penjualan</li>
+    <li class="active">{{ __('penjualanDetail.transaction') }}</li>
 @endsection
 
 @section('content')
@@ -58,7 +58,7 @@
                     <!-- @csrf -->
                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group row">
-                        <label for="kode_produk" class="col-lg-2">Kode Produk</label>
+                        <label for="kode_produk" class="col-lg-2">{{ __('penjualanDetail.product_code') }}</label>
                         <div class="col-lg-5">
                             <div class="input-group">
                                 <input type="hidden" name="id_penjualan" id="id_penjualan" value="{{ $id_penjualan }}">
@@ -75,12 +75,12 @@
                 <table class="table table-stiped table-bordered table-penjualan">
                     <thead>
                         <th width="5%">No</th>
-                        <th>Kode</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
-                        <th width="15%">Jumlah</th>
-                        <th>Diskon</th>
-                        <th>Subtotal</th>
+                        <th>{{ __('penjualan.code') }}</th>
+                        <th>{{ __('penjualan.name') }}</th>
+                        <th>{{ __('penjualan.price') }}</th>
+                        <th width="15%">{{ __('penjualan.amount') }}</th>
+                        <th>{{ __('penjualan.discount') }}</th>
+                        <th>{{ __('penjualan.subtotal') }}</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -106,13 +106,13 @@
                             @endif
 
                             <div class="form-group row">
-                                <label for="totalrp" class="col-lg-2 control-label">Total</label>
+                                <label for="totalrp" class="col-lg-2 control-label">{{ __('penjualanDetail.total') }}</label>
                                 <div class="col-lg-8">
                                     <input type="text" id="totalrp" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kode_member" class="col-lg-2 control-label">Member</label>
+                                <label for="kode_member" class="col-lg-2 control-label">{{ __('penjualanDetail.member') }}</label>
                                 <div class="col-lg-8">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="kode_member" value="{{ $memberSelected->kode_member }}">
@@ -123,25 +123,25 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="diskon" class="col-lg-2 control-label">Diskon</label>
+                                <label for="diskon" class="col-lg-2 control-label">{{ __('penjualanDetail.discount') }}</label>
                                 <div class="col-lg-8">
                                     <input type="number" name="diskon" id="diskon" class="form-control" value="{{ !empty($memberSelected->id_member) ? $diskon : 0 }}" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="bayar" class="col-lg-2 control-label">Bayar</label>
+                                <label for="bayar" class="col-lg-2 control-label">{{ __('penjualanDetail.payment') }}</label>
                                 <div class="col-lg-8">
                                     <input type="text" id="bayarrp" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="diterima" class="col-lg-2 control-label">Diterima</label>
+                                <label for="diterima" class="col-lg-2 control-label">{{ __('penjualanDetail.received') }}</label>
                                 <div class="col-lg-8">
                                     <input type="text" id="diterima" class="form-control" name="diterima" value="{{ $penjualan->diterima ?? 0 }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="kembali" class="col-lg-2 control-label">Kembali</label>
+                                <label for="kembali" class="col-lg-2 control-label">{{ __('penjualanDetail.change') }}</label>
                                 <div class="col-lg-8">
                                     <input type="text" id="kembali" name="kembali" class="form-control" value="0" readonly>
                                 </div>
@@ -152,7 +152,7 @@
             </div>
 
             <div class="box-footer">
-                <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Simpan Transaksi</button>
+                <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> {{ __('penjualanDetail.save_transaction') }}</button>
             </div>
         </div>
     </div>
@@ -165,6 +165,10 @@
 @push('scripts')
 <script>
     let table, table2;
+
+    const translations = {
+        pay: "{{ __('penjualanDetail.pay') }}",
+    };
 
     $(function () {
         $('body').addClass('sidebar-collapse');
@@ -322,7 +326,7 @@
                 $('#totalrp').val('Rp. '+ response.totalrp);
                 $('#bayarrp').val('Rp. '+ response.bayarrp);
                 $('#bayar').val(response.bayar);
-                $('.tampil-bayar').text('Bayar: Rp. '+ response.bayarrp);
+                $('.tampil-bayar').text(translations.pay + ': Rp. '+ response.bayarrp);
                 $('.tampil-terbilang').text(response.terbilang);
             
                 $('#kembali').val('Rp.'+ response.kembalirp);

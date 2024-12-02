@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Transaksi Pembelian
+{{ __('pembelianDetail.transaction_purchase') }}
 @endsection
 
 @push('css')
@@ -44,7 +44,7 @@
 
 @section('breadcrumb')
     @parent
-    <li class="active">Transaksi Pembelian</li>
+    <li class="active">{{ __('pembelianDetail.transaction_purchase') }}</li>
 @endsection
 
 @section('content')
@@ -54,15 +54,15 @@
             <div class="box-header with-border">
                 <table>
                     <tr>
-                        <td>Supplier</td>
+                        <td>{{ __('pembelianDetail.supplier') }}</td>
                         <td>: {{ $supplier->nama }}</td>
                     </tr>
                     <tr>
-                        <td>Telepon</td>
+                        <td>{{ __('pembelianDetail.phone') }}</td>
                         <td>: {{ $supplier->telepon }}</td>
                     </tr>
                     <tr>
-                        <td>Alamat</td>
+                        <td>{{ __('pembelianDetail.address') }}</td>
                         <td>: {{ $supplier->alamat }}</td>
                     </tr>
                 </table>
@@ -72,7 +72,7 @@
                 <form class="form-produk">
                     @csrf
                     <div class="form-group row">
-                        <label for="kode_produk" class="col-lg-2">Kode Produk</label>
+                        <label for="kode_produk" class="col-lg-2">{{ __('pembelianDetail.product_code') }}</label>
                         <div class="col-lg-5">
                             <div class="input-group">
                                 <input type="hidden" name="id_pembelian" id="id_pembelian" value="{{ $id_pembelian }}">
@@ -89,11 +89,11 @@
                 <table class="table table-stiped table-bordered table-pembelian">
                     <thead>
                         <th width="5%">No</th>
-                        <th>Kode</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
-                        <th width="15%">Jumlah</th>
-                        <th>Subtotal</th>
+                        <th>{{ __('pembelianDetail.product_code') }}</th>
+                        <th>{{ __('pembelianDetail.name') }}</th>
+                        <th>{{ __('pembelianDetail.price') }}</th>
+                        <th width="15%">{{ __('pembelianDetail.quantity') }}</th>
+                        <th>{{ __('pembelianDetail.subtotal') }}</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -112,19 +112,19 @@
                             <input type="hidden" name="bayar" id="bayar">
 
                             <div class="form-group row">
-                                <label for="totalrp" class="col-lg-2 control-label">Total</label>
+                                <label for="totalrp" class="col-lg-2 control-label">{{ __('pembelianDetail.total') }}</label>
                                 <div class="col-lg-8">
                                     <input type="text" id="totalrp" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="diskon" class="col-lg-2 control-label">Diskon</label>
+                                <label for="diskon" class="col-lg-2 control-label">{{ __('pembelianDetail.discount') }}</label>
                                 <div class="col-lg-8">
                                     <input type="number" name="diskon" id="diskon" class="form-control" value="{{ $diskon }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="bayar" class="col-lg-2 control-label">Bayar</label>
+                                <label for="bayar" class="col-lg-2 control-label">{{ __('pembelianDetail.pay') }}</label>
                                 <div class="col-lg-8">
                                     <input type="text" id="bayarrp" class="form-control">
                                 </div>
@@ -135,7 +135,7 @@
             </div>
 
             <div class="box-footer">
-                <button type="submit" class="btn btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Simpan Transaksi</button>
+                <button type="submit" class="btn btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> {{ __('pembelianDetail.save_transaction') }}</button>
             </div>
         </div>
     </div>

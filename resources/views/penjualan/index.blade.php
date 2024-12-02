@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Daftar Penjualan
+{{ __('penjualan.sales_list') }}
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Daftar Penjualan</li>
+    <li class="active">{{ __('penjualan.sales_list') }}</li>
 @endsection
 
 @section('content')
@@ -17,13 +17,13 @@
                 <table class="table table-stiped table-bordered table-penjualan">
                     <thead>
                         <th width="5%">No</th>
-                        <th>Tanggal</th>
-                        <th>Kode Member</th>
-                        <th>Total Item</th>
-                        <th>Total Harga</th>
-                        <th>Diskon</th>
-                        <th>Total Bayar</th>
-                        <th>Kasir</th>
+                        <th>{{ __('penjualan.date') }}</th>
+                        <th>{{ __('penjualan.member_code') }}</th>
+                        <th>{{ __('penjualan.total_items') }}</th>
+                        <th>{{ __('penjualan.total_price') }}</th>
+                        <th>{{ __('penjualan.discount') }}</th>
+                        <th>{{ __('penjualan.total_payment') }}</th>
+                        <th>{{ __('penjualan.cashier') }}</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>

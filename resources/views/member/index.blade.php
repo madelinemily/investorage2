@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-    Daftar Member
+{{ __('member.title') }}
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="active">Daftar Member</li>
+    <li class="active">{{ __('member.title') }}</li>
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <button onclick="addForm('{{ route('member.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Tambah</button>
+                <button onclick="addForm('{{ route('member.store') }}')" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> {{ __('member.add_button') }}</button>
             </div>
             <div class="box-body table-responsive">
                 <form action="" method="post" class="form-member">
@@ -24,11 +24,11 @@
                             <th width="5%">
                                 <input type="checkbox" name="select_all" id="select_all">
                             </th>
-                            <th width="5%">No</th>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Telepon</th>
-                            <th>Alamat</th>
+                            <th width="5%">{{ __('member.no') }}</th>
+                            <th>{{ __('member.code') }}</th>
+                            <th>{{ __('member.name') }}</th>
+                            <th>{{ __('member.phone') }}</th>
+                            <th>{{ __('member.address') }}</th>
                             <th width="15%"><i class="fa fa-cog"></i></th>
                         </thead>
                     </table>
@@ -44,6 +44,14 @@
 @push('scripts')
 <script>
     let table;
+
+    const translations = {
+        delete_confirm: "{{ __('member.delete_confirm') }}",
+        delete_confirm_selected: "{{ __('member.delete_confirm_selected') }}",
+        modal_title_add: "{{ __('member.modal_title_add') }}",
+        modal_title_edit: "{{ __('member.modal_title_edit') }}",
+        delete_error: "{{ __('member.delete_error') }}",
+    };
 
     $(function () {
         table = $('.table').DataTable({
@@ -86,7 +94,7 @@
 
     function addForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Tambah Member');
+        $('#modal-form .modal-title').text(translations.modal_title_add);
 
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
@@ -96,7 +104,7 @@
 
     function editForm(url) {
         $('#modal-form').modal('show');
-        $('#modal-form .modal-title').text('Edit Member');
+        $('#modal-form .modal-title').text(translations.modal_title_edit);
 
         $('#modal-form form')[0].reset();
         $('#modal-form form').attr('action', url);
@@ -116,7 +124,7 @@
     }
 
     function deleteData(url) {
-        if (confirm('Yakin ingin menghapus data terpilih?')) {
+        if (confirm(translations.delete_confirm)) {
             $.post(url, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'delete'

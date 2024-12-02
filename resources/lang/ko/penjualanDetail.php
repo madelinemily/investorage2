@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'pay' => 'Pay',
+    'transaction' => 'Sales Transaction',
+    'total' => 'Total',
+    'member' => 'Member',
+    'discount' => 'Discount',
+    'payment' => 'Payment',
+    'received' => 'Received',
+    'change' => 'Change',
+    'save_transaction' => 'Save Transaction',
+    'product_code' => 'Product Code',
+    'select_product' => 'Select Product',
+    'product_list' => 'Product List',
+    'quantity' => 'Quantity',
+    'search_member' => 'Search Member',
+    'confirmation_delete' => 'Are you sure you want to delete the selected data?',
+    'error_message' => 'Unable to save data',
+    'no' => 'No',
+    'yes' => 'Yes',
+    'back_to_dashboard' => 'Back to Dashboard',
+    'search' => 'Search',
+    'apply_discount' => 'Apply Discount',
+    'no_data' => 'No data',
+    'stock_not_enough' => 'The stock of product :product is insufficient. Only :stock items are available.',
+    'low_stock_notification' => 'The stock of product :product is down to :stock. Need to buy more!',
+];

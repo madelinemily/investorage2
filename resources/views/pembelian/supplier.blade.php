@@ -3,15 +3,15 @@
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between align-items-center">
                 <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h4 class="modal-title">Pilih Supplier</h4>
+                <h4 class="modal-title">{{ __('pembelian.modal.supplier_title') }}</h4>
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-bordered table-supplier">
                     <thead>
-                        <th width="5%">No</th>
-                        <th>Nama</th>
-                        <th>Telepon</th>
-                        <th>Alamat</th>
+                        <th width="5%">{{ __('pembelian.table.no') }}</th>
+                        <th>{{ __('pembelian.table.name') }}</th>
+                        <th>{{ __('pembelian.table.phone') }}</th>
+                        <th>{{ __('pembelian.table.address') }}</th>
                         <th><i class="fa fa-cog"></i></th>
                     </thead>
                     <tbody>
@@ -24,7 +24,7 @@
                             <td>
                                 <a style="background-color: #2E4492; color: #fff" href="{{ route('pembelian.create', $item->id_supplier) }}" class="btn btn-xs btn-flat">
                                     <i class="fa fa-check-circle"></i>
-                                    Pilih
+                                    {{ __('pembelian.modal.select_button') }}
                                 </a>
                             </td>
                         </tr>

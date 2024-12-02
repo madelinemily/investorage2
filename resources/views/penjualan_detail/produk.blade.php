@@ -3,15 +3,15 @@
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between align-items-center">
                 <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
-                <h4 class="modal-title">Pilih Produk</h4>
+                <h4 class="modal-title">{{ __('penjualanDetail.select_product') }}</h4>
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-bordered table-produk">
                     <thead>
                         <th width="5%">No</th>
-                        <th>Kode</th>
-                        <th>Nama</th>
-                        <th>Harga Beli</th>
+                        <th>{{ __('produk.code') }}</th>
+                        <th>{{ __('produk.name') }}</th>
+                        <th>{{ __('produk.purchase_price') }}</th>
                         <th><i class="fa fa-cog"></i></th>
                     </thead>
                     <tbody>
@@ -25,7 +25,7 @@
                                 <a style="background-color: #2E4492; color: #fff" href="#" class="btn btn-xs btn-flat"
                                     onclick="pilihProduk('{{ $item->id_produk }}', '{{ $item->kode_produk }}')">
                                     <i class="fa fa-check-circle"></i>
-                                    Pilih
+                                    {{ __('penjualanDetail.select_product') }}
                                 </a>
                             </td>
                         </tr>

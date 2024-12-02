@@ -44,7 +44,7 @@
    </ul>
 </li>
 
-        
+@if(auth()->user()->role == 1)
         <!-- Notification Icon -->
           <li class="nav-item dropdown me-4">
             <!-- Lonceng dengan link untuk membuka dropdown -->
@@ -80,7 +80,7 @@
 </ul>
 
           </li>
-
+          @endif
 
 
           <!-- User Account: style can be found in dropdown.less -->
