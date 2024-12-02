@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -23,8 +25,8 @@ class UserController extends Controller
             ->addColumn('aksi', function ($user) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('user.update', $user->id) .'`)" class="btn btn-xs btn-info btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-pencil" style="color: #FFFFFF"></i></button>
-                    <button type="button" onclick="deleteData(`'. route('user.destroy', $user->id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="editForm(`' . route('user.update', $user->id) . '`)" class="btn btn-xs btn-info btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-pencil" style="color: #FFFFFF"></i></button>
+                    <button type="button" onclick="deleteData(`' . route('user.destroy', $user->id) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -98,7 +100,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        if ($request->has('password') && $request->password != "") 
+        if ($request->has('password') && $request->password != "")
             $user->password = bcrypt($request->password);
         $user->update();
 
@@ -127,20 +129,51 @@ class UserController extends Controller
 
     public function updateProfil(Request $request)
     {
-        $user = auth()->user();
+        Validator::extend('match_old_password', function ($attribute, $value, $parameters, $validator) {
+            return Hash::check($value, auth()->user()->password);
+        });
         
-        $user->name = $request->name;
-        if ($request->has('password') && $request->password != "") {
-            if (Hash::check($request->old_password, $user->password)) {
-                if ($request->password == $request->password_confirmation) {
-                    $user->password = bcrypt($request->password);
-                } else {
-                    return response()->json('Konfirmasi password tidak sesuai', 422);
-                }
-            } else {
-                return response()->json('Password lama tidak sesuai', 422);
-            }
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:2',
+            'old_password' => 'nullable|min:5|match_old_password',
+            'password' => 'nullable|min:5|confirmed',
+            'foto' => 'nullable|image|max:2048',
+        ], [
+            'name.required' => __('profile.name_required'),
+            'name.min' => __('profile.name_min'),
+            'old_password.min' => __('profile.old_password_min'),
+            'old_password.match_old_password' => __('profile.old_password_invalid'),
+            'password.min' => __('profile.new_password_requirement'),
+            'password.confirmed' => __('profile.password_mismatch'),
+            'foto.image' => __('profile.photo_invalid'),
+            'foto.max' => __('profile.photo_max'),
+        ]);
+
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422); // 422 Unprocessable Entity
         }
+
+        // Dapatkan profil pengguna yang sedang login
+        $user = auth()->user();
+
+        // Update nama
+        $user->name = $request->name;
+
+        // Update password jika diisi
+        // if ($request->filled('old_password')) {
+        //     if (!Hash::check($request->old_password, $user->password)) {
+        //         return response()->json([
+        //             'errors' => ['old_password' => __('profile.old_password_invalid')],
+        //         ], 422);
+        //     }
+
+        //     $user->password = Hash::make($request->password);
+        // }
+
+        $user->password = Hash::make($request->password);
 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
@@ -152,6 +185,27 @@ class UserController extends Controller
 
         $user->update();
 
+
         return response()->json($user, 200);
+        // // Update foto profil jika ada file diunggah
+        // if ($request->hasFile('foto')) {
+        //     $fotoPath = $request->file('foto')->store('uploads/profile_photos', 'public');
+
+        //     // Hapus foto lama jika ada
+        //     if ($user->foto) {
+        //         Storage::disk('public')->delete($user->foto);
+        //     }
+
+        //     $user->foto = $fotoPath;
+        // }
+
+        // // Simpan perubahan
+        // $user->save();
+
+        // return response()->json([
+        //     'success' => __('profile.changes_saved'),
+        //     'name' => $user->name,
+        //     'foto' => $user->foto ? asset('storage/' . $user->foto) : null,
+        // ]);
     }
 }

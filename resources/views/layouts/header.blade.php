@@ -16,8 +16,37 @@
 
       <div class="navbar-custom-menu d-flex align-items-center">
         <ul class="nav navbar-nav d-flex flex-row align-items-center">
-          <!-- Notification Icon -->
-          <li class="nav-item dropdown me-3">
+          <!-- Toggle Language  -->
+           <!-- Dropdown Language -->
+<li class="nav-item dropdown me-4">
+   <a href="#" class="nav-link dropdown-toggle" id="dropdownLanguage" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa fa-language" style="font-size: 20px;"></i>
+   </a>
+   <ul class="dropdown-menu" aria-labelledby="dropdownLanguage">
+      <li>
+         <a href="{{ route('locale', ['locale' => 'id']) }}" class="dropdown-item">
+            <div class="media">
+               <div class="media-body">
+                  <h3 class="dropdown-item-title">Bahasa Indonesia</h3>
+               </div>
+            </div>
+         </a>
+      </li>
+      <li>
+         <a href="{{ route('locale', ['locale' => 'ko']) }}" class="dropdown-item">
+            <div class="media">
+               <div class="media-body">
+                  <h3 class="dropdown-item-title">Bahasa Korea</h3>
+               </div>
+            </div>
+         </a>
+      </li>
+   </ul>
+</li>
+
+        
+        <!-- Notification Icon -->
+          <li class="nav-item dropdown me-4">
             <!-- Lonceng dengan link untuk membuka dropdown -->
             <a href="#" class="nav-link" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-bell" style="font-size: 20px;"></i>

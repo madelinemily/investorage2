@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use Illuminate\Support\Facades\Validator;
 
 class KategoriController extends Controller
 {
@@ -30,8 +31,8 @@ class KategoriController extends Controller
             ->addColumn('aksi', function ($kategori) {
                 return '
                 <div class="btn-group">
-                    <button onclick="editForm(`'. route('kategori.update', $kategori->id_kategori) .'`)" class="btn btn-xs btn-info btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-pencil" style="color: #fff"></i></button>
-                    <button onclick="deleteData(`'. route('kategori.destroy', $kategori->id_kategori) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button onclick="editForm(`' . route('kategori.update', $kategori->id_kategori) . '`)" class="btn btn-xs btn-info btn-flat" style="background-color: #2E4492; border-color: #2E4492;"><i class="fa fa-pencil" style="color: #fff"></i></button>
+                    <button onclick="deleteData(`' . route('kategori.destroy', $kategori->id_kategori) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -48,16 +49,26 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         // Validasi input
-        $request->validate([
-            'nama_kategori' => 'required|string|max:255',
+        $validator = Validator::make($request->all(), [
+            'nama_kategori' => 'required|min:2',
+        ], [
+            'nama_kategori.required' => __('messages.category_name_required'),
+            'nama_kategori.min' => __('messages.category_name_min'),
         ]);
 
-        // Simpan data kategori baru
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422); // 422 Unprocessable Entity
+        }
+
+        // Jika validasi sukses, simpan data kategori
         $kategori = new Kategori();
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->save();
 
-        return redirect()->route('kategori.index')->with('success', 'Data berhasil diperbarui');
+        return response()->json(['success' => 'Data berhasil diperbarui']);
     }
 
     /**
@@ -93,7 +104,7 @@ class KategoriController extends Controller
 
         // Cari dan update data kategori
         $kategori = Kategori::find($id);
-        
+
         if (!$kategori) {
             return response()->json(['error' => 'Data tidak ditemukan'], 404);
         }

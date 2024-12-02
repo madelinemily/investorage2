@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PembelianController;
@@ -13,6 +13,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
@@ -29,7 +30,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth', SetLocale::class]], function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
@@ -84,6 +85,13 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
+    Route::get('locale/{locale}', function ($locale) {
+        if (in_array($locale, ['id', 'ko'])) {
+            App::setLocale($locale);
+            session()->put('locale', $locale);
+        }
+        return redirect()->back();
+    })->name('locale');
 });
 
 
