@@ -17,7 +17,7 @@ use App\Http\Middleware\SetLocale;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
-    return redirect()->route('login');
+    return redirect()->route('register');
 });
 
 Route::middleware([
@@ -86,7 +86,7 @@ Route::group(['middleware' => ['auth', SetLocale::class]], function(){
     Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
     Route::get('locale/{locale}', function ($locale) {
-        if (in_array($locale, ['id', 'ko'])) {
+        if (in_array($locale, ['id', 'en'])) {
             App::setLocale($locale);
             session()->put('locale', $locale);
         }

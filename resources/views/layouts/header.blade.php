@@ -11,7 +11,7 @@
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">{{ __('header.toggle_navigation') }}</span>
       </a>
 
       <div class="navbar-custom-menu d-flex align-items-center">
@@ -27,16 +27,16 @@
          <a href="{{ route('locale', ['locale' => 'id']) }}" class="dropdown-item">
             <div class="media">
                <div class="media-body">
-                  <h3 class="dropdown-item-title">Bahasa Indonesia</h3>
+                  <h3 class="dropdown-item-title">{{ __('header.languages.indonesian') }}</h3>
                </div>
             </div>
          </a>
       </li>
       <li>
-         <a href="{{ route('locale', ['locale' => 'ko']) }}" class="dropdown-item">
+         <a href="{{ route('locale', ['locale' => 'en']) }}" class="dropdown-item">
             <div class="media">
                <div class="media-body">
-                  <h3 class="dropdown-item-title">Bahasa Korea</h3>
+                  <h3 class="dropdown-item-title">{{ __('header.languages.english') }}</h3>
                </div>
             </div>
          </a>
@@ -63,20 +63,20 @@
             <!-- Dropdown menu yang akan muncul setelah ikon diklik -->
             <!-- Dropdown menu yang akan muncul setelah ikon diklik -->
 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-  <li class="dropdown-header">Notifications</li>
+  <li class="dropdown-header">{{ __('header.notifications') }}</li>
   @if(count($notifications) > 0)
     @foreach($notifications as $notification)
       <li>
         <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
           <span>{{ $notification->message }}</span>
-          <button class="btn btn-sm btn-danger remove-notification" data-id="{{ $notification->id }}">Mark as Read</button>
+          <button class="btn btn-sm btn-danger remove-notification" data-id="{{ $notification->id }}">{{ __('header.mark_as_read') }}</button>
         </a>
       </li>
     @endforeach
   @else
-    <li><a class="dropdown-item" href="#">No new notifications</a></li>
+    <li><a class="dropdown-item" href="#">{{ __('header.no_new_notifications') }}</a></li>
   @endif
-  <li><a class="dropdown-item" href="{{ route('notifications.index') }}">See all notifications</a></li> <!-- Ganti dengan route yang menampilkan semua notifikasi -->
+  <li><a class="dropdown-item" href="{{ route('notifications.index') }}">{{ __('header.see_all_notifications') }}</a></li> <!-- Ganti dengan route yang menampilkan semua notifikasi -->
 </ul>
 
           </li>
@@ -94,18 +94,18 @@
               <li class="user-header">
                 <img src="{{ url(auth()->user()->foto ?? '') }}" class="img-circle img-profil" alt="User Image">
 
-                <p>
+                <p style="color: black">
                   {{ auth()->user()->name }} - {{ auth()->user()->email }}
                 </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{{ route('user.profil') }}" class="btn btn-default btn-flat">Profil</a>
+                  <a href="{{ route('user.profil') }}" class="btn btn-default btn-flat">{{ __('header.profile') }}</a>
                 </div>
                 <div class="pull-right">
                   <a href="#" class="btn btn-default btn-flat"
-                    onclick="$('#logout-form').submit()">Keluar</a>
+                    onclick="$('#logout-form').submit()">{{ __('header.logout') }}</a>
                 </div>
               </li>
             </ul>

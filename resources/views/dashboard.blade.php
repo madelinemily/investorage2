@@ -14,9 +14,9 @@
 <div class="row">
     <!-- Language Toggle -->
 <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary" id="toggle-language">
+    <!-- <button class="btn btn-primary" id="toggle-language">
         {{ session('locale') == 'ko' ? 'English' : 'Bahasa' }}
-    </button>
+    </button> -->
 </div>
 
     <div class="col-lg-3 col-xs-6">

@@ -76,12 +76,6 @@
           </a>
         </li>
 
-        <li>
-          <a href="#">
-            <i class="fa fa-cogs"></i> <span>{{ __('sidebar.pengaturan') }}</span>
-          </a>
-        </li>
-
         @else
         <li>
           <a href="{{ route('transaksi.index')}}">

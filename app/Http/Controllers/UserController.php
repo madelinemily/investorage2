@@ -132,7 +132,7 @@ class UserController extends Controller
         Validator::extend('match_old_password', function ($attribute, $value, $parameters, $validator) {
             return Hash::check($value, auth()->user()->password);
         });
-        
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:2',
             'old_password' => 'nullable|min:5|match_old_password',
@@ -149,32 +149,20 @@ class UserController extends Controller
             'foto.max' => __('profile.photo_max'),
         ]);
 
-        // Jika validasi gagal
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors(),
-            ], 422); // 422 Unprocessable Entity
+            ], 422);
         }
 
-        // Dapatkan profil pengguna yang sedang login
         $user = auth()->user();
-
-        // Update nama
         $user->name = $request->name;
 
-        // Update password jika diisi
-        // if ($request->filled('old_password')) {
-        //     if (!Hash::check($request->old_password, $user->password)) {
-        //         return response()->json([
-        //             'errors' => ['old_password' => __('profile.old_password_invalid')],
-        //         ], 422);
-        //     }
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
 
-        //     $user->password = Hash::make($request->password);
-        // }
-
-        $user->password = Hash::make($request->password);
-
+        // Update foto profil
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $nama = 'logo-' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
@@ -183,29 +171,12 @@ class UserController extends Controller
             $user->foto = "/img/$nama";
         }
 
-        $user->update();
+        $user->save();
 
-
-        return response()->json($user, 200);
-        // // Update foto profil jika ada file diunggah
-        // if ($request->hasFile('foto')) {
-        //     $fotoPath = $request->file('foto')->store('uploads/profile_photos', 'public');
-
-        //     // Hapus foto lama jika ada
-        //     if ($user->foto) {
-        //         Storage::disk('public')->delete($user->foto);
-        //     }
-
-        //     $user->foto = $fotoPath;
-        // }
-
-        // // Simpan perubahan
-        // $user->save();
-
-        // return response()->json([
-        //     'success' => __('profile.changes_saved'),
-        //     'name' => $user->name,
-        //     'foto' => $user->foto ? asset('storage/' . $user->foto) : null,
-        // ]);
+        return response()->json([
+            'success' => __('profile.changes_saved'),
+            'name' => $user->name,
+            'foto' => $user->foto,
+        ], 200);
     }
 }
